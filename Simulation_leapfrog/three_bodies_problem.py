@@ -3,7 +3,7 @@ import numpy as np
 from matplotlib import animation
 from matplotlib import pyplot as plt
 
-from Question2 import methode_saute_mouton
+from Simulation_leapfrog import methode_saute_mouton as sp
 
 
 # Conditions initiales
@@ -20,6 +20,11 @@ vitC = np.array([0.1, 0.1])
 vitesses = np.array([vitA, vitB, vitC])
 
 masse = np.array([3, 4, 5])
+
+systeme_solaire_symplifier={'corps':['A','B','C'],
+                            'position':positions,
+                            'vitesse':vitesses,
+                            'masse':masse}
 
 
 ''' exploration '''
@@ -142,75 +147,92 @@ def Animation(donnes_a_anime,titre):
 
 
 if __name__ == '__main__':
-    """ liste des points du a) [[[x1...],[y1...]],[[x2...],[y2...]],[[x3...],[y3...]]] """
-    # collision de deux corps et après libération
-    trajectoire_num_a = methode_saute_mouton.leapfrog(positions, vitesses, 0, 1, 1000, masse)
-    Animation(trajectoire_num_a,"Animation de la solution au problème à 3 corps")
+
+    sp.saute_mouton(systeme_solaire_symplifier,0,10).__call__()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # """ liste des points du a) [[[x1...],[y1...]],[[x2...],[y2...]],[[x3...],[y3...]]] """
+    # # collision de deux corps et après libération
+    # trajectoire_num_a = methode_saute_mouton.leapfrog(positions, vitesses, 0, 1, 1000, masse)
+    # Animation(trajectoire_num_a,"Animation de la solution au problème à 3 corps")
+    # #
+    # '''exploration'''
     #
-    '''exploration'''
-
-    ''' variation dans les vitesse initial'''
-    # corps bleu et verre reste lier gravitaionnelment
-    # corps rouge atteint vitesse de liberation et criss sont camps
-    trajectoire_num_explo_1 = methode_saute_mouton.leapfrog(positions, vitesses_explo, 0, 1, 1000, masse)
-    Animation(trajectoire_num_explo_1,"Animation de la solution au problème à 3 corps avec différente vitesse")
-
-    ''' variation dans les positions de dépars'''
-    # collision bleu et vert et senfuit apres
-    # coprs rouge A possede une masse plus petite et est trop loins l'influence des deux autre devient negligable et donc reste presque stable.
-    trajectoire_num_explo_2 = methode_saute_mouton.leapfrog(positions_explo, vitesses, 0, 1, 1000, masse)
-    Animation(trajectoire_num_explo_2,"Animation de la solution au problème à 3 corps avec différente position de départ")
-
-    ''' variation dans les masses'''
-    #  corps A le plus massif et donc lui qui apres la collision vas le moins loins
-    #  les deux autres se retrouvent projeter plus loins a cause de l'echange d'energie
-    trajectoire_num_explo_2 = methode_saute_mouton.leapfrog(positions, vitesses, 0, 1, 1000, masse_explo)
-    Animation(trajectoire_num_explo_2,"Animation de la solution au problème à 3 corps avec différente masse")
-
-
-
-
-    ''' liste des points du b) '''
-    # Commen en A mais plus long donc les objetvont plus loins. Ne sont plus lier gravitationnelemnt
-    trajectoire_b = methode_saute_mouton.leapfrog(positions, vitesses, 0, 10, 10000, masse)
-
-    Animation(trajectoire_b,"Longue animation de la solution au problème à 3 corps ")
-
-
-
-    ''' liste des points du c) '''
-    #  la trjaectoire donne une orbite stable en forme d'infini malade.
-    # stabiliter atteint. On a ici une belle demonstration d'un systeme stable d'etoiles triple
-    # orbitant les une autours des autre
-    trajectoire_c = methode_saute_mouton.leapfrog(positions_c, vitesses_c, 0, 10, 10000, masse_c)
-
-    Animation(trajectoire_c,"Animation de la solution au problème à 3 corps dans les années 2000")
-
-    '''exploration c)'''
-
-    ''' variation dans les vitesse initial en c)'''
-    # Vitesse vient grandement influence la chose. On perd totalement la stabiliter qu'on avait.
-
-    trajectoire_num_explo_1_c = methode_saute_mouton.leapfrog(positions_c, vitesses_explo_c, 0, 10, 1000, masse_c)
-    Animation(trajectoire_num_explo_1_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente vitesse")
-
-    ''' variation dans les positions de départ en c)'''
-    # On voit que Rouge(A) et bleue (B) reste liée gravitationellement par la suite.(orbite une et autre autours du centre de masse)
-    # Dans ce cas les masse sont toute egale a 1 donc. mais si m(A/rouge )>m(B/bleue) on aurait un corps
-    # qui orbiterait plus autour de l'autre comme la lune autour de la terre.
-    # C'est la masse la plus petiet qui orbite autour de l'autre normalement. car le centre de masse change de position. donc peut se retrouver dans la planete la plus massive
-    # comme la terre-lune ou le centre de masse du systeme est presque au centre de la terre. Donc lune tourne presque autour de du centre de la terre.
-
-    # L'influence sur la trajectoire de vert(C) est visible aussi courbe autour des deux autre corps.
-
-    #  je trouve cette animation vraiment interresante aussi
-    #  jai mis 30 dans le temps pour voir l'interarion de bleur et rouge ensemnbe
-    trajectoire_num_explo_2_c = methode_saute_mouton.leapfrog(positions_explo_c, vitesses_c, 0, 30, 1000, masse_c)
-    Animation(trajectoire_num_explo_2_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente position de départ")
-
-    ''' variation dans les massesen c)'''
-    # tout le monde crisse leur camps.
-    # Les masse on vraiment une grande influence sur la stabiliter car la force en depend directement.
-    # modifie tout l'equilibre d'un systemen
-    trajectoire_num_explo_3_c = methode_saute_mouton.leapfrog(positions_c, vitesses_c, 0, 10, 1000, masse_explo_c)
-    Animation(trajectoire_num_explo_3_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente masse")
+    # ''' variation dans les vitesse initial'''
+    # # corps bleu et verre reste lier gravitaionnelment
+    # # corps rouge atteint vitesse de liberation et criss sont camps
+    # trajectoire_num_explo_1 = methode_saute_mouton.leapfrog(positions, vitesses_explo, 0, 1, 1000, masse)
+    # Animation(trajectoire_num_explo_1,"Animation de la solution au problème à 3 corps avec différente vitesse")
+    #
+    # ''' variation dans les positions de dépars'''
+    # # collision bleu et vert et senfuit apres
+    # # coprs rouge A possede une masse plus petite et est trop loins l'influence des deux autre devient negligable et donc reste presque stable.
+    # trajectoire_num_explo_2 = methode_saute_mouton.leapfrog(positions_explo, vitesses, 0, 1, 1000, masse)
+    # Animation(trajectoire_num_explo_2,"Animation de la solution au problème à 3 corps avec différente position de départ")
+    #
+    # ''' variation dans les masses'''
+    # #  corps A le plus massif et donc lui qui apres la collision vas le moins loins
+    # #  les deux autres se retrouvent projeter plus loins a cause de l'echange d'energie
+    # trajectoire_num_explo_2 = methode_saute_mouton.leapfrog(positions, vitesses, 0, 1, 1000, masse_explo)
+    # Animation(trajectoire_num_explo_2,"Animation de la solution au problème à 3 corps avec différente masse")
+    #
+    #
+    #
+    #
+    # ''' liste des points du b) '''
+    # # Commen en A mais plus long donc les objetvont plus loins. Ne sont plus lier gravitationnelemnt
+    # trajectoire_b = methode_saute_mouton.leapfrog(positions, vitesses, 0, 10, 10000, masse)
+    #
+    # Animation(trajectoire_b,"Longue animation de la solution au problème à 3 corps ")
+    #
+    #
+    #
+    # ''' liste des points du c) '''
+    # #  la trjaectoire donne une orbite stable en forme d'infini malade.
+    # # stabiliter atteint. On a ici une belle demonstration d'un systeme stable d'etoiles triple
+    # # orbitant les une autours des autre
+    # trajectoire_c = methode_saute_mouton.leapfrog(positions_c, vitesses_c, 0, 10, 10000, masse_c)
+    #
+    # Animation(trajectoire_c,"Animation de la solution au problème à 3 corps dans les années 2000")
+    #
+    # '''exploration c)'''
+    #
+    # ''' variation dans les vitesse initial en c)'''
+    # # Vitesse vient grandement influence la chose. On perd totalement la stabiliter qu'on avait.
+    #
+    # trajectoire_num_explo_1_c = methode_saute_mouton.leapfrog(positions_c, vitesses_explo_c, 0, 10, 1000, masse_c)
+    # Animation(trajectoire_num_explo_1_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente vitesse")
+    #
+    # ''' variation dans les positions de départ en c)'''
+    # # On voit que Rouge(A) et bleue (B) reste liée gravitationellement par la suite.(orbite une et autre autours du centre de masse)
+    # # Dans ce cas les masse sont toute egale a 1 donc. mais si m(A/rouge )>m(B/bleue) on aurait un corps
+    # # qui orbiterait plus autour de l'autre comme la lune autour de la terre.
+    # # C'est la masse la plus petiet qui orbite autour de l'autre normalement. car le centre de masse change de position. donc peut se retrouver dans la planete la plus massive
+    # # comme la terre-lune ou le centre de masse du systeme est presque au centre de la terre. Donc lune tourne presque autour de du centre de la terre.
+    #
+    # # L'influence sur la trajectoire de vert(C) est visible aussi courbe autour des deux autre corps.
+    #
+    # #  je trouve cette animation vraiment interresante aussi
+    # #  jai mis 30 dans le temps pour voir l'interarion de bleur et rouge ensemnbe
+    # trajectoire_num_explo_2_c = methode_saute_mouton.leapfrog(positions_explo_c, vitesses_c, 0, 30, 1000, masse_c)
+    # Animation(trajectoire_num_explo_2_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente position de départ")
+    #
+    # ''' variation dans les massesen c)'''
+    # # tout le monde crisse leur camps.
+    # # Les masse on vraiment une grande influence sur la stabiliter car la force en depend directement.
+    # # modifie tout l'equilibre d'un systemen
+    # trajectoire_num_explo_3_c = methode_saute_mouton.leapfrog(positions_c, vitesses_c, 0, 10, 1000, masse_explo_c)
+    # Animation(trajectoire_num_explo_3_c,"Animation de la solution au problème à 3 corps des années 2000 \n avec différente masse")
