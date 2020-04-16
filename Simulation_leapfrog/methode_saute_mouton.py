@@ -4,17 +4,18 @@ from matplotlib import pyplot as plt
 
 
 class saute_mouton:
-    def __init__(self, systeme: dict, tmin: int, tmax: int, **kwargs):
+    def __init__(self, systeme: dict, tmin: int, tmax: int, titre,**kwargs):
         self.nom_corps=systeme['corps']
         self.position = systeme['position']
         self.vitesse = systeme['vitesse']
         self.masse = systeme['masse']
         self.tmin = tmin
         self.tmax = tmax
-        self.nb_point = kwargs['nb_point', 1000]
+        self.nb_point = kwargs.get('nb_point', 1000)
         self.trajectoire3d = np.array([])
         self.trajectoire2d = np.array([])
         self.nombre_de_corps = len(self.position)
+        self.titre = titre
 
     def leapfrog2d(self):
         '''
@@ -174,9 +175,11 @@ class saute_mouton:
     def Animation2d(self, titre):
 
         nb_points = len(self.trajectoire2d[0][0])
+        data={}
+        dict_donner_aniamtion={}
+        # data = {'xA': self.trajectoire2d[0][0], 'yA': self.trajectoire2d[0][1], 'xB': self.trajectoire2d[1][0],
+        # 'yB': self.trajectoire2d[1][1], 'xC': self.trajectoire2d[2][0], 'yC': self.trajectoire2d[2][1]}
 
-        data = {'xA': self.trajectoire2d[0][0], 'yA': self.trajectoire2d[0][1], 'xB': self.trajectoire2d[1][0],
-                'yB': self.trajectoire2d[1][1], 'xC': self.trajectoire2d[2][0], 'yC': self.trajectoire2d[2][1]}
         borne = self.limite2d()
         fig = plt.figure()
         ax = plt.axes(xlim=borne[0],
@@ -184,24 +187,16 @@ class saute_mouton:
 
         lines = [ax.plot([], [])[0] for _ in range(self.nombre_de_corps)]
         for j in range(self.nombre_de_corps):
+            data.update({f'X{self.nom_corps[j]}': self.trajectoire2d[j][0]})
+            data.update({f'Y{self.nom_corps[j]}': self.trajectoire2d[j][1]})
+            dict_donner_aniamtion.update({f'xdata{self.nom_corps[j]}':[], f'ydata{self.nom_corps[j]}':[]})
             lines[j].set_label(self.nom_corps[j])
 
-
-        xdataA, ydataA = [], []
-        xdataB, ydataB = [], []
-        xdataC, ydataC = [], []
-
         def animate(i):
-            xdataA.append(data["xA"][i])
-            ydataA.append(data["yA"][i])
-            xdataB.append(data["xB"][i])
-            ydataB.append(data["yB"][i])
-            xdataC.append(data["xC"][i])
-            ydataC.append(data["yC"][i])
-            lines[0].set_data(xdataA, ydataA)
-            lines[1].set_data(xdataB, ydataB)
-            lines[2].set_data(xdataC, ydataC)
-
+            for j in range(self.nombre_de_corps):
+                dict_donner_aniamtion[f'xdata{self.nom_corps[j]}'].append(data[f'X{self.nom_corps[j]}'][i])
+                dict_donner_aniamtion[f'ydata{self.nom_corps[j]}'].append(data[f'Y{self.nom_corps[j]}'][i])
+                lines[j].set_data(dict_donner_aniamtion[f'xdata{self.nom_corps[j]}'], dict_donner_aniamtion[f'ydata{self.nom_corps[j]}'])
             return lines
 
         anim = animation.FuncAnimation(fig, animate, frames=nb_points, interval=2, repeat=False)
@@ -212,3 +207,7 @@ class saute_mouton:
         plt.show()
         # writer = animation.writers['imagemagick'](fps=30)
         # anim.save(f'/{titre}.gif',writer=writer)
+    def __call__(self):
+        self.leapfrog2d()
+        self.Animation2d(self.titre)
+
