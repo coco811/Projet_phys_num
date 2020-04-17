@@ -130,7 +130,7 @@ def Animation(donnes_a_anime,titre):
 
         return lines
 
-    anim = animation.FuncAnimation(fig, animate, frames=nb_points, interval=2, repeat=False)
+    anim = animation.FuncAnimation(fig, animate, frames=nb_points, interval=2, repeat=False,blit=True)
     plt.title(titre)
     plt.xlabel('position en x')
     plt.ylabel('position en y')
