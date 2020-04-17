@@ -150,7 +150,7 @@ class saute_mouton:
             self.trajectoire3d = np.array(trajectoire)
         return np.array(trajectoire)
 
-    def limite2d(self,):
+    def limite2d(self):
 
         liste_xextr = []
         liste_yextr = []
@@ -181,9 +181,10 @@ class saute_mouton:
         # 'yB': self.trajectoire2d[1][1], 'xC': self.trajectoire2d[2][0], 'yC': self.trajectoire2d[2][1]}
 
         borne = self.limite2d()
+        borne2 = [(-20*(150000000),20*(150000000)),borne[1]]
         fig = plt.figure()
-        ax = plt.axes(xlim=borne[0],
-                      ylim=borne[1])
+        ax = plt.axes(xlim=borne2[0],
+                      ylim=borne2[1])
 
         lines = [ax.plot([], [])[0] for _ in range(self.nombre_de_corps)]
         for j in range(self.nombre_de_corps):
