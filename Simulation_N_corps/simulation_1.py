@@ -24,7 +24,7 @@ def calcul_acceleration(corps, index_corps):
         if index != index_corps:
             r = (corps_obs.position.x - corps_ext.position.x)**2 + (corps_obs.position.y - corps_ext.position.y)**2 + (corps_obs.position.z - corps_ext.position.z)**2
             r = math.sqrt(r)
-            tmp = G * corps_ext.mass / r**3
+            tmp = G * corps_ext.masse / r**3
             acceleration.x += tmp * (corps_ext.position.x - corps_obs.position.x)
             acceleration.y += tmp * (corps_ext.position.y - corps_obs.position.y)
             acceleration.z += tmp * (corps_ext.position.z - corps_obs.position.z)
@@ -34,15 +34,15 @@ def calcul_acceleration(corps, index_corps):
 def calcul_vitesse(corps, pas_temps = 1):
     for body_index, corps_obs in enumerate(corps):
         acceleration = calcul_acceleration(corps, body_index)
-        corps_obs.velocity.x += acceleration.x * pas_temps
-        corps_obs.velocity.y += acceleration.y * pas_temps
-        corps_obs.velocity.z += acceleration.z * pas_temps
+        corps_obs.vitesse.x += acceleration.x * pas_temps
+        corps_obs.vitesse.y += acceleration.y * pas_temps
+        corps_obs.vitesse.z += acceleration.z * pas_temps
 
 def calcul_position(corps, pas_temps = 1):
     for corps_obs in corps:
-        corps_obs.position.x += corps_obs.velocity.x * pas_temps
-        corps_obs.position.y += corps_obs.velocity.y * pas_temps
-        corps_obs.position.z += corps_obs.velocity.z * pas_temps
+        corps_obs.position.x += corps_obs.vitesse.x * pas_temps
+        corps_obs.position.y += corps_obs.vitesse.y * pas_temps
+        corps_obs.position.z += corps_obs.vitesse.z * pas_temps
 
 def calcul_pas_grav(corps, pas_temps = 1):
     calcul_vitesse(corps, pas_temps = pas_temps)
