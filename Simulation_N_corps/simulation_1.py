@@ -9,75 +9,74 @@ class point:
         self.y = y
         self.z = z
 
-class body:
-    def __init__(self, location, mass, velocity, name = ""):
-        self.location = location
-        self.mass = mass
-        self.velocity = velocity
-        self.name = name
+class corps:
+    def __init__(self, position, masse, vitesse, nom = ""):
+        self.position = position
+        self.masse = masse
+        self.vitesse = vitesse
+        self.nom = nom
 
-def calculate_single_body_acceleration(bodies, body_index):
-    G_const = 6.67408e-11 #m3 kg-1 s-2
+def calcul_acceleration(corps, index_corps):
+    G = 6.67408e-11 #m3 kg-1 s-2
     acceleration = point(0,0,0)
-    target_body = bodies[body_index]
-    for index, external_body in enumerate(bodies):
-        if index != body_index:
-            r = (target_body.location.x - external_body.location.x)**2 + (target_body.location.y - external_body.location.y)**2 + (target_body.location.z - external_body.location.z)**2
+    corps_obs = corps[index_corps]
+    for index, corps_ext in enumerate(corps):
+        if index != index_corps:
+            r = (corps_obs.position.x - corps_ext.position.x)**2 + (corps_obs.position.y - corps_ext.position.y)**2 + (corps_obs.position.z - corps_ext.position.z)**2
             r = math.sqrt(r)
-            tmp = G_const * external_body.mass / r**3
-            acceleration.x += tmp * (external_body.location.x - target_body.location.x)
-            acceleration.y += tmp * (external_body.location.y - target_body.location.y)
-            acceleration.z += tmp * (external_body.location.z - target_body.location.z)
+            tmp = G * corps_ext.mass / r**3
+            acceleration.x += tmp * (corps_ext.position.x - corps_obs.position.x)
+            acceleration.y += tmp * (corps_ext.position.y - corps_obs.position.y)
+            acceleration.z += tmp * (corps_ext.position.z - corps_obs.position.z)
 
     return acceleration
 
-def compute_velocity(bodies, time_step = 1):
-    for body_index, target_body in enumerate(bodies):
-        acceleration = calculate_single_body_acceleration(bodies, body_index)
-        target_body.velocity.x += acceleration.x * time_step
-        target_body.velocity.y += acceleration.y * time_step
-        target_body.velocity.z += acceleration.z * time_step
+def calcul_vitesse(corps, pas_temps = 1):
+    for body_index, corps_obs in enumerate(corps):
+        acceleration = calcul_acceleration(corps, body_index)
+        corps_obs.velocity.x += acceleration.x * pas_temps
+        corps_obs.velocity.y += acceleration.y * pas_temps
+        corps_obs.velocity.z += acceleration.z * pas_temps
 
-def update_location(bodies, time_step = 1):
-    for target_body in bodies:
-        target_body.location.x += target_body.velocity.x * time_step
-        target_body.location.y += target_body.velocity.y * time_step
-        target_body.location.z += target_body.velocity.z * time_step
+def calcul_position(corps, pas_temps = 1):
+    for corps_obs in corps:
+        corps_obs.position.x += corps_obs.velocity.x * pas_temps
+        corps_obs.position.y += corps_obs.velocity.y * pas_temps
+        corps_obs.position.z += corps_obs.velocity.z * pas_temps
 
-def compute_gravity_step(bodies, time_step = 1):
-    compute_velocity(bodies, time_step = time_step)
-    update_location(bodies, time_step = time_step)
-
-
-def run_simulation(bodies, names=None, time_step=1, number_of_steps=10000, report_freq=100):
-    # create output container for each body
-    body_locations_hist = []
-    for current_body in bodies:
-        body_locations_hist.append({"x": [], "y": [], "z": [], "name": current_body.name})
-
-    for i in range(1, number_of_steps):
-        compute_gravity_step(bodies, time_step=1000)
-
-        if i % report_freq == 0:
-            for index, body_location in enumerate(body_locations_hist):
-                body_location["x"].append(bodies[index].location.x)
-                body_location["y"].append(bodies[index].location.y)
-                body_location["z"].append(bodies[index].location.z)
-    print(body_locations_hist)
-    return body_locations_hist
+def calcul_pas_grav(corps, pas_temps = 1):
+    calcul_vitesse(corps, pas_temps = pas_temps)
+    calcul_position(corps, pas_temps = pas_temps)
 
 
-def plot_output(bodies, outfile=None):
+def run_simulation(corps, noms=None, pas_temps=1,nombre_de_pas=10000, frequence=100):
+    position_des_corps = []
+    for corps_etudier in corps:
+        position_des_corps.append({"x": [], "y": [], "z": [], "nom": corps_etudier.nom})
+
+    for i in range(1,nombre_de_pas):
+        calcul_pas_grav(corps, pas_temps=1000)
+
+        if i % frequence == 0:
+            for index, position_corps in enumerate(position_des_corps):
+                position_corps["x"].append(corps[index].position.x)
+                position_corps["y"].append(corps[index].position.y)
+                position_corps["z"].append(corps[index].position.z)
+    print(position_des_corps)
+    return position_des_corps
+
+
+def plot_output(corps, outfile=None):
     fig = plot.figure()
     colours = ['r', 'b', 'g', 'y', 'm', 'c']
     ax = fig.add_subplot(1, 1, 1, projection='3d')
     max_range = 0
-    for current_body in bodies:
+    for current_body in corps:
         max_dim = max(max(current_body["x"]), max(current_body["y"]), max(current_body["z"]))
         if max_dim > max_range:
             max_range = max_dim
         ax.plot(current_body["x"], current_body["y"], current_body["z"], c=random.choice(colours),
-                label=current_body["name"])
+                label=current_body["nom"])
 
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
@@ -89,36 +88,3 @@ def plot_output(bodies, outfile=None):
     else:
         plot.show()
 
-
-def animation3d(bodies, titre):
-
-    fig = plot.figure()
-    colours = ['r', 'b', 'g', 'y', 'm', 'c']
-    ax = fig.add_subplot(1, 1, 1, projection='3d')
-    max_range = 0
-    for current_body in bodies:
-        max_dim = max(max(current_body["x"]), max(current_body["y"]), max(current_body["z"]))
-        if max_dim > max_range:
-            max_range = max_dim
-    ax.set_xlim([-max_range, max_range])
-    ax.set_ylim([-max_range, max_range])
-    ax.set_zlim([-max_range, max_range])
-
-    lines = [ax.plot([], [], [])[0] for _ in range(bodies)]
-    planete = [ax.plot([], [],[],marker='o')[0] for _ in range(bodies)]
-
-    def animate(i):
-        for j in range(bodies):
-            lines[j].set_data(bodies[j]['x'][:i+1], bodies[j]['y'][:i+1])
-            lines[j].set_3d_properties(bodies[j]['z'][:i+1])
-            planete[j].set_data(bodies[j]['x'][:i], bodies[j]['y'][:i])
-            planete[j].set_3d_properties(bodies[j]['z'][:i + 1])
-        return lines,planete
-
-
-    anim = animation.FuncAnimation(fig, animate, interval=2, repeat=False)
-    fig.title(titre)
-    fig.xlabel('position en x')
-    fig.ylabel('position en y')
-    fig.legend()
-    fig.show()
