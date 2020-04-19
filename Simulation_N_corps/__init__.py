@@ -27,7 +27,7 @@ if __name__ == "__main__":
     # sm1.corps(position=saturn["position"], masse=saturn["masse"], vitesse=saturn["vitesse"], nom="saturn"),
     # sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="uranus "),
     # sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="neptune ")
-    motions = sm1.run_simulation(bodies, time_step=100, number_of_steps=80000, report_freq=1000)
+    motions = sm1.run_simulation(bodies, pas_temps=100, nombre_de_pas=80000, frequence=1000)
     print(motions)
     sm1.plot_output(motions, outfile=None)
     # sm1.animation3d(motions, 'allo')
