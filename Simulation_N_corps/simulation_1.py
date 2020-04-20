@@ -1,6 +1,6 @@
 import math
 import random
-
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plot
 
 
@@ -76,14 +76,19 @@ def run_simulation(corps, noms=None, pas_temps=1, nombre_de_pas=10000, frequence
 def Graphique(corps, titre, outfile=None):
     fig = plot.figure()
     fig.tight_layout()
+    ax = fig.add_subplot(1, 1, 1,projection='3d')
     fig.subplots_adjust(right=0.8)
     r = random.random()
     b = random.random()
     g = random.random()
     couleur = (r, g, b)
-    ax = fig.add_subplot(1, 1, 1, projection='3d')
+
     max_range = 0
     for corps_obs in corps:
+        r = random.random()
+        b = random.random()
+        g = random.random()
+        couleur = (r, g, b)
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
         if max_dim > max_range:
             max_range = max_dim
@@ -109,14 +114,14 @@ def Graphique(corps, titre, outfile=None):
 def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None, ):
     fig = plot.figure()
     fig.tight_layout()
-    r = random.random()
-    b = random.random()
-    g = random.random()
-    couleur = (r, g, b)
-    ax = fig.add_subplot(1, 1, 1, projection='3d')
     fig.subplots_adjust(right=0.8)
+    ax = fig.add_subplot(1, 1, 1, projection='3d')
     max_range = 0
     for i in range(depart, fin):
+        r = random.random()
+        b = random.random()
+        g = random.random()
+        couleur = (r, g, b)
         max_dim = max(max(corps[i]["x"]), max(corps[i]["y"]), max(corps[i]["z"]))
         if max_dim > max_range:
             max_range = max_dim
