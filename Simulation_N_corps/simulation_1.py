@@ -55,36 +55,134 @@ def run_simulation(corps, noms=None, pas_temps=1,nombre_de_pas=10000, frequence=
         position_des_corps.append({"x": [], "y": [], "z": [], "nom": corps_etudier.nom})
 
     for i in range(1,nombre_de_pas):
-        calcul_pas_grav(corps, pas_temps=1000)
-
+        calcul_pas_grav(corps, pas_temps=pas_temps)
         if i % frequence == 0:
+            print('ok',i)
             for index, position_corps in enumerate(position_des_corps):
                 position_corps["x"].append(corps[index].position.x)
                 position_corps["y"].append(corps[index].position.y)
                 position_corps["z"].append(corps[index].position.z)
-    print(position_des_corps)
     return position_des_corps
 
 
-def plot_output(corps, outfile=None):
+def Graphique(corps, outfile=None):
     fig = plot.figure()
+    fig.tight_layout()
+    fig.subplots_adjust(right=0.8)
     colours = ['r', 'b', 'g', 'y', 'm', 'c']
     ax = fig.add_subplot(1, 1, 1, projection='3d')
     max_range = 0
-    for current_body in corps:
-        max_dim = max(max(current_body["x"]), max(current_body["y"]), max(current_body["z"]))
+    for corps_obs in corps:
+        max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
         if max_dim > max_range:
             max_range = max_dim
-        ax.plot(current_body["x"], current_body["y"], current_body["z"], c=random.choice(colours),
-                label=current_body["nom"])
+        ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c=random.choice(colours),
+                label=corps_obs["nom"])
 
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
     ax.set_zlim([-max_range, max_range])
-    ax.legend()
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [ $10^{12}$m]')
+    ax.set_ylabel('Position en y [ $10^{12}$m]')
+    ax.set_zlabel('Position en z [ $10^{12}$m]')
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    ax.zaxis.get_offset_text().set_visible(False)
+    if outfile:
+        plot.savefig(outfile)
+    else:
+        plot.show()
+
+def Graphique_uranus_seul(corps,titre ,outfile=None):
+    fig = plot.figure()
+    fig.tight_layout()
+    colours = ['r', 'b', 'g', 'y', 'm', 'c']
+    ax = fig.add_subplot(1, 1, 1, projection='3d')
+    fig.subplots_adjust(right=0.8)
+    max_range = 0
+    max_dim = max(max(corps[6]["x"]), max(corps[6]["y"]), max(corps[6]["z"]))
+    if max_dim > max_range:
+        max_range = max_dim
+    ax.plot(corps[6]["x"], corps[6]["y"], corps[6]["z"], c=random.choice(colours),
+            label=corps[6]["nom"])
+    plot.title(titre)
+    ax.set_xlim([-max_range, max_range])
+    ax.set_ylim([-max_range, max_range])
+    ax.set_zlim([-max_range, max_range])
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [ $10^{12}$m]')
+    ax.set_ylabel('Position en y [ $10^{12}$m]')
+    ax.set_zlabel('Position en z [ $10^{12}$m]')
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    ax.zaxis.get_offset_text().set_visible(False)
+    if outfile:
+        plot.savefig(outfile)
+    else:
+        plot.show()
+
+def Graphique_uranus_neptune(corps,titre,outfile=None,):
+    fig = plot.figure()
+    fig.tight_layout()
+    colours = ['r', 'b', 'g', 'y', 'm', 'c']
+    ax = fig.add_subplot(1, 1, 1, projection='3d')
+    fig.subplots_adjust(right=0.8)
+    max_range = 0
+    max_dim = max(max(corps[7]["x"]), max(corps[7]["y"]), max(corps[7]["z"]))
+    if max_dim > max_range:
+        max_range = max_dim
+    ax.plot(corps[6]["x"], corps[6]["y"], corps[6]["z"], c=random.choice(colours),
+            label=corps[6]["nom"])
+    ax.plot(corps[7]["x"], corps[7]["y"], corps[7]["z"], c=random.choice(colours),
+            label=corps[7]["nom"])
+
+    ax.set_xlim([-max_range, max_range])
+    ax.set_ylim([-max_range, max_range])
+    ax.set_zlim([-max_range, max_range])
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [ $10^{12}$m]')
+    ax.set_ylabel('Position en y [ $10^{12}$m]')
+    ax.set_zlabel('Position en z [ $10^{12}$m]')
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    ax.zaxis.get_offset_text().set_visible(False)
+    plot.title(titre)
 
     if outfile:
         plot.savefig(outfile)
     else:
         plot.show()
 
+def Graphique_avecsans_neptune(corps_avec,corps_sans,titre,outfile=None,):
+    fig = plot.figure()
+    fig.tight_layout()
+    colours = ['r', 'b', 'g', 'y', 'm', 'c']
+    ax = fig.add_subplot(1, 1, 1, projection='3d')
+    fig.subplots_adjust(right=0.8)
+    max_range = 0
+    max_dim = max(max(corps_avec[6]["x"]), max(corps_avec[6]["y"]), max(corps_avec[6]["z"]))
+    if max_dim > max_range:
+        max_range = max_dim
+    ax.plot(corps_avec[6]["x"], corps_avec[6]["y"], corps_avec[6]["z"], c=random.choice(colours),
+            label=corps_avec[6]["nom"])
+    ax.plot(corps_sans[6]["x"], corps_sans[6]["y"], corps_sans[6]["z"], c=random.choice(colours),
+            label=corps_sans[6]["nom"])
+
+
+    ax.set_xlim([-max_range, max_range])
+    ax.set_ylim([-max_range, max_range])
+    ax.set_zlim([-max_range, max_range])
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [ $10^{12}$m]')
+    ax.set_ylabel('Position en y [ $10^{12}$m]')
+    ax.set_zlabel('Position en z [ $10^{12}$m]')
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    ax.zaxis.get_offset_text().set_visible(False)
+    plot.title(titre)
+
+    if outfile:
+        plot.savefig(outfile)
+    else:
+        plot.show()
