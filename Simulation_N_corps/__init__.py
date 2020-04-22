@@ -59,24 +59,31 @@ if __name__ == "__main__":
 
     "Comparaison des simulation"
     # comparaison avec et sans Neptune de l'orbite d'Uranus
-    # mouvement_pour_graph=[]
-    # mouvement_complet_avec = stockage_des_liste.avec_neptune()
-    # mouvement_complet_sans = stockage_des_liste.sans_neptune()
-    # mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
-    # mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
-    # mouvement_pour_graph.append(mouvement_complet_sans[7])
-    # mouvement_pour_graph.append(mouvement_complet_avec[7])
-    # sm1.Graphique(mouvement_pour_graph,
-    #               "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
-    #               outfile=None)
-
+    mouvement_pour_graph=[]
+    mouvement_complet_avec = stockage_des_liste.avec_neptune()
+    mouvement_complet_sans = stockage_des_liste.sans_neptune()
+    mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
+    mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
+    mouvement_pour_graph.append(mouvement_complet_sans[7])
+    mouvement_pour_graph.append(mouvement_complet_avec[7])
+    sm1.Graphique(mouvement_pour_graph,
+                  "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
+                  outfile=None)
+    sm1.graph2d(mouvement_pour_graph,
+                "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
+                outfile=None)
 
     # comparaison reference et simulation Uranus Avec neptune
     # mouvement_complet = stockage_des_liste.avec_neptune()
+    # nom_fichier = 'horizons_results-3.txt'
+    # nom_planete = 'Réference'
     # mouvement_ref = Donnée.extraire_donne(nom_fichier, nom_planete)
     # mouvement_complet[7]['nom'] = 'Simulation\n avec Neptune '
     # mouvement_ref.append(mouvement_complet[7])
     # sm1.Graphique(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ", outfile=None)
+    # sm1.graph2d(mouvement_ref,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
+
+
 
     # comparaison reference et simulation Uranus sans neptune
     # mouvement_complet = stockage_des_liste.sans_neptune()
@@ -86,3 +93,6 @@ if __name__ == "__main__":
     # mouvement_complet[7]['nom'] = 'Simulation \n sans Neptune '
     # mouvement_ref.append(mouvement_complet[7])
     # sm1.Graphique(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus sans l'influence de Neptune ", outfile=None)
+    # sm1.graph2d(mouvement_ref,
+    #             "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
+    #             outfile=None)
