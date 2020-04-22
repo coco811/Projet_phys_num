@@ -92,6 +92,7 @@ def Graphique(corps, titre, outfile=None):
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
         if max_dim > max_range:
             max_range = max_dim
+
         corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
         corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
         corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
@@ -156,6 +157,42 @@ def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
     else:
         plot.show()
 
+def Graphique_plusieurs_corps_galac(corps, titre, depart=0, fin=20, outfile=None ):
+    fig = plot.figure()
+    fig.tight_layout()
+    fig.subplots_adjust(right=0.8)
+    ax = fig.add_subplot(1, 1, 1, projection='3d')
+    max_range = 0
+
+
+    for i in range(depart, fin):
+        corps[i]["x"] = np.array(corps[i]["x"]) - np.array(corps[0]["x"])
+        r = random.random()
+        b = random.random()
+        g = random.random()
+        couleur = (r, g, b)
+        max_dim = max(max(corps[i]["x"]), max(corps[i]["y"]), max(corps[i]["z"]))
+        if max_dim > max_range:
+            max_range = max_dim
+        ax.plot(corps[i]["x"], corps[i]["y"], corps[i]["z"], c=couleur,
+                label=corps[i]["nom"])
+    ax.plot(corps[0]["x"], corps[0]["y"], corps[0]["z"], c='k', label=corps[0]["nom"])
+    ax.set_xlim([-max_range, max_range])
+    ax.set_ylim([-max_range, max_range])
+    ax.set_zlim([-max_range, max_range])
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [$10^{12}$m]', labelpad=10)
+    ax.set_ylabel('Position en y [$10^{12}$m]', labelpad=10)
+    ax.set_zlabel('Position en z [$10^{12}$m]', labelpad=10)
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    ax.zaxis.get_offset_text().set_visible(False)
+    plot.title(titre)
+
+    if outfile:
+        plot.savefig(outfile)
+    else:
+        plot.show()
 def graph2d(corps, titre, depart=0, fin=20, outfile=None):
     fig = plot.figure()
     fig.tight_layout()
