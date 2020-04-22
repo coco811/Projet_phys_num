@@ -14,8 +14,11 @@ neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.po
 pluto = {"position": sm1.point(0, 3.7e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 0, 0)}
 
 if __name__ == "__main__":
-    "Simulation"
-    # systeme solaire classique
+    "  Simulation  "
+
+
+    "  systeme solaire classique  "
+
     corps_simulation_complete_systeme = [
         sm1.corps(position=sun["position"], masse=sun["masse"], vitesse=sun["vitesse"], nom="Sun"),
         sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
@@ -27,14 +30,13 @@ if __name__ == "__main__":
         sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
         sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="Neptune "),
     ]
-    # mouvement_complet = sm1.run_simulation(corps_simulation_complete_systeme, pas_temps=12500, nombre_de_pas=400000,
-                                           # frequence=1000)
-    # print(mouvement_complet)
+    # mouvement_complet = sm1.run_simulation(corps_simulation_complete_systeme, pas_temps=12500, nombre_de_pas=400000,frequence=1000)
     # mouvement_complet=stockage_des_liste.avec_neptune()
     # sm1.Graphique_plusieurs_corps(mouvement_complet,"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
 
 
-    # systeme solaire sans neptune
+    "   systeme solaire sans neptune  "
+
     corps_simulation_sans_Neptune = [
         sm1.corps(position=sun["position"], masse=sun["masse"], vitesse=sun["vitesse"], nom="Sun"),
         sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
@@ -54,8 +56,11 @@ if __name__ == "__main__":
 
 
 
-    "Comparaison des simulation"
-    # comparaison avec et sans Neptune de l'orbite d'Uranus
+    "  Comparaison des simulation  "
+
+
+    " comparaison avec et sans Neptune de l'orbite d'Uranus"
+
     # mouvement_pour_graph=[]
     # mouvement_complet_avec = stockage_des_liste.avec_neptune()
     # mouvement_complet_sans = stockage_des_liste.sans_neptune()
@@ -70,7 +75,8 @@ if __name__ == "__main__":
     #             "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
     #             outfile=None)
 
-    # comparaison reference et simulation Uranus Avec neptune
+    "  comparaison reference et simulation Uranus Avec neptune  "
+
     # mouvement_complet = stockage_des_liste.avec_neptune()
     # nom_fichier = 'horizons_results-3.txt'
     # nom_planete = 'Réference'
@@ -82,7 +88,8 @@ if __name__ == "__main__":
 
 
 
-    # comparaison reference et simulation Uranus sans neptune
+    "comparaison reference et simulation Uranus sans neptune"
+
     # mouvement_complet = stockage_des_liste.sans_neptune()
     # nom_fichier = 'horizons_results-3.txt'
     # nom_planete = 'Réference'
