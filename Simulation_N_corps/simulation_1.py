@@ -2,7 +2,7 @@ import math
 import random
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plot
-
+import numpy as np
 
 class point:
     def __init__(self, x, y, z):
@@ -92,6 +92,9 @@ def Graphique(corps, titre, outfile=None):
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
         if max_dim > max_range:
             max_range = max_dim
+        corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
+        corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
+        corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
         if corps_obs['nom']=='Simulation\n avec Neptune ':
             ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
         else:
@@ -120,7 +123,12 @@ def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
     fig.subplots_adjust(right=0.8)
     ax = fig.add_subplot(1, 1, 1, projection='3d')
     max_range = 0
+
+
     for i in range(depart, fin):
+        corps[i]["x"] = np.array(corps[i]["x"]) - np.array(corps[0]["x"])
+        corps[i]["y"] = np.array(corps[i]["y"]) - np.array(corps[0]["y"])
+        corps[i]["z"] = np.array(corps[i]["z"]) - np.array(corps[0]["z"])
         r = random.random()
         b = random.random()
         g = random.random()
@@ -130,6 +138,7 @@ def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
             max_range = max_dim
         ax.plot(corps[i]["x"], corps[i]["y"], corps[i]["z"], c=couleur,
                 label=corps[i]["nom"])
+    ax.plot(corps[0]["x"], corps[0]["y"], corps[0]["z"], c='k', label=corps[0]["nom"])
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
     ax.set_zlim([-max_range, max_range])
@@ -161,6 +170,9 @@ def graph2d(corps, titre, depart=0, fin=20, outfile=None):
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
         if max_dim > max_range:
             max_range = max_dim
+        corps_obs["x"]=np.array(corps_obs["x"]) - np.array(corps[0]["x"])
+        corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
+        corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
         if corps_obs['nom']=='Simulation\n avec Neptune ':
             ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
         else:
