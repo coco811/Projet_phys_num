@@ -18,7 +18,9 @@ pluto = {"position": sm1.point(0, 5.9e12, 0), "masse": 1.3e22, "vitesse": sm1.po
 rogue_1 = {"position": sm1.point(3.7e12, 3.7e12, 0), "masse": 2e28, "vitesse": sm1.point(1300, -1300, 300)}
 
 if __name__ == '__main__':
-    # simulation du systeme solaire avec le mouvement vers le haut autour de la galaxie.
+
+    "simulation du systeme solaire avec le mouvement vers le haut autour de la galaxie."
+
     corps_simulation_complete_systeme = [
         sm1.corps(position=vrai_sun["position"], masse=vrai_sun["masse"], vitesse=vrai_sun["vitesse"], nom="Sun"),
         sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
@@ -45,7 +47,9 @@ if __name__ == '__main__':
 
 
 
-    # Simulation Rogue 1 Masse:2xjupitere
+    "Simulation Rogue 1 Masse:2xjupitere"
+
+
     corps_simulation_rogue_1 = [
         sm1.corps(position=sun["position"], masse=sun["masse"], vitesse=sun["vitesse"], nom="Sun"),
         sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
