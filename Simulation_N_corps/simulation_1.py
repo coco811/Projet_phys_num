@@ -92,7 +92,10 @@ def Graphique(corps, titre, outfile=None):
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
         if max_dim > max_range:
             max_range = max_dim
-        ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c=couleur,
+        if corps_obs['nom']=='Simulation\n avec Neptune ':
+            ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+        else:
+            ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c=couleur,
                 label=corps_obs["nom"])
     plot.title(titre)
     ax.set_xlim([-max_range, max_range])
@@ -111,7 +114,7 @@ def Graphique(corps, titre, outfile=None):
         plot.show()
 
 
-def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None, ):
+def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
     fig = plot.figure()
     fig.tight_layout()
     fig.subplots_adjust(right=0.8)
@@ -138,6 +141,39 @@ def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None, ):
     ax.yaxis.get_offset_text().set_visible(False)
     ax.zaxis.get_offset_text().set_visible(False)
     plot.title(titre)
+
+    if outfile:
+        plot.savefig(outfile)
+    else:
+        plot.show()
+
+def graph2d(corps, titre, depart=0, fin=20, outfile=None):
+    fig = plot.figure()
+    fig.tight_layout()
+    fig.subplots_adjust(right=0.8)
+    ax = fig.add_subplot(1, 1, 1)
+    max_range = 0
+    for corps_obs in corps:
+        r = random.random()
+        b = random.random()
+        g = random.random()
+        couleur = (r, g, b)
+        max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
+        if max_dim > max_range:
+            max_range = max_dim
+        if corps_obs['nom']=='Simulation\n avec Neptune ':
+            ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+        else:
+            ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
+    ax.set_xlim([-max_range, max_range])
+    ax.set_ylim([-max_range, max_range])
+    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
+    ax.set_xlabel('Position en x [$10^{12}$m]', labelpad=10)
+    ax.set_ylabel('Position en y [$10^{12}$m]', labelpad=10)
+    ax.xaxis.get_offset_text().set_visible(False)
+    ax.yaxis.get_offset_text().set_visible(False)
+    plot.title(titre)
+    ax.set_aspect('equal')
 
     if outfile:
         plot.savefig(outfile)
