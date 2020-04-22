@@ -78,11 +78,6 @@ def Graphique(corps, titre, outfile=None):
     fig.tight_layout()
     ax = fig.add_subplot(1, 1, 1,projection='3d')
     fig.subplots_adjust(right=0.8)
-    r = random.random()
-    b = random.random()
-    g = random.random()
-    couleur = (r, g, b)
-
     max_range = 0
     for corps_obs in corps:
         r = random.random()
@@ -93,9 +88,11 @@ def Graphique(corps, titre, outfile=None):
         if max_dim > max_range:
             max_range = max_dim
 
-        corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
-        corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
-        corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
+        if corps_obs['nom'] !='Réference':
+            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
+            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
+            corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
+
         if corps_obs['nom']=='Simulation\n avec Neptune ':
             ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
         else:
@@ -118,13 +115,14 @@ def Graphique(corps, titre, outfile=None):
         plot.show()
 
 
+
+
 def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
     fig = plot.figure()
     fig.tight_layout()
     fig.subplots_adjust(right=0.8)
     ax = fig.add_subplot(1, 1, 1, projection='3d')
     max_range = 0
-
 
     for i in range(depart, fin):
         corps[i]["x"] = np.array(corps[i]["x"]) - np.array(corps[0]["x"])
@@ -139,7 +137,6 @@ def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None ):
             max_range = max_dim
         ax.plot(corps[i]["x"], corps[i]["y"], corps[i]["z"], c=couleur,
                 label=corps[i]["nom"])
-    ax.plot(corps[0]["x"], corps[0]["y"], corps[0]["z"], c='k', label=corps[0]["nom"])
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
     ax.set_zlim([-max_range, max_range])
@@ -193,27 +190,37 @@ def Graphique_plusieurs_corps_galac(corps, titre, depart=0, fin=20, outfile=None
         plot.savefig(outfile)
     else:
         plot.show()
+
+
 def graph2d(corps, titre, depart=0, fin=20, outfile=None):
+
     fig = plot.figure()
     fig.tight_layout()
     fig.subplots_adjust(right=0.8)
     ax = fig.add_subplot(1, 1, 1)
     max_range = 0
+
     for corps_obs in corps:
+
         r = random.random()
         b = random.random()
         g = random.random()
         couleur = (r, g, b)
         max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
+
         if max_dim > max_range:
             max_range = max_dim
-        corps_obs["x"]=np.array(corps_obs["x"]) - np.array(corps[0]["x"])
+
+
+        corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
         corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
-        corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
+
         if corps_obs['nom']=='Simulation\n avec Neptune ':
             ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+
         else:
             ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
+
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
     ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
