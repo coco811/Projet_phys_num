@@ -42,7 +42,7 @@ if __name__ == '__main__':
     # print(mouvement_complet_avec_mouve_galatic)
     # mouvement_complet_avec_mouve_galatic= stockage_des_liste.mouve_galatic_avec_y()
     # sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic,"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
-   
+
     # graph 2d
     # mouvement_complet_avec_mouve_galatic_juste_z= stockage_des_liste.mouve_galatic_juste_z()
     # sm1.graph2d(mouvement_complet_avec_mouve_galatic_juste_z,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
