@@ -13,9 +13,6 @@ uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.p
 neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.point(5477, 0, 0)}
 pluto = {"position": sm1.point(0, 3.7e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 0, 0)}
 
-# test planète rogue
-rogue = {"position": sm1.point(3.7e10, 3.7e11, 0), "masse": 9e29, "vitesse": sm1.point(-130000, -13000, 300)}
-sm1.corps(position=rogue["position"], masse=rogue["masse"], vitesse=rogue["vitesse"], nom="Rogue ")
 if __name__ == "__main__":
     "Simulation"
     # systeme solaire classique
@@ -59,19 +56,19 @@ if __name__ == "__main__":
 
     "Comparaison des simulation"
     # comparaison avec et sans Neptune de l'orbite d'Uranus
-    mouvement_pour_graph=[]
-    mouvement_complet_avec = stockage_des_liste.avec_neptune()
-    mouvement_complet_sans = stockage_des_liste.sans_neptune()
-    mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
-    mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
-    mouvement_pour_graph.append(mouvement_complet_sans[7])
-    mouvement_pour_graph.append(mouvement_complet_avec[7])
-    sm1.Graphique(mouvement_pour_graph,
-                  "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
-                  outfile=None)
-    sm1.graph2d(mouvement_pour_graph,
-                "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
-                outfile=None)
+    # mouvement_pour_graph=[]
+    # mouvement_complet_avec = stockage_des_liste.avec_neptune()
+    # mouvement_complet_sans = stockage_des_liste.sans_neptune()
+    # mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
+    # mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
+    # mouvement_pour_graph.append(mouvement_complet_sans[7])
+    # mouvement_pour_graph.append(mouvement_complet_avec[7])
+    # sm1.Graphique(mouvement_pour_graph,
+    #               "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
+    #               outfile=None)
+    # sm1.graph2d(mouvement_pour_graph,
+    #             "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
+    #             outfile=None)
 
     # comparaison reference et simulation Uranus Avec neptune
     # mouvement_complet = stockage_des_liste.avec_neptune()
