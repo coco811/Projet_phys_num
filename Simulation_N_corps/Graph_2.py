@@ -4,9 +4,6 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plot
 import numpy as np
 
-
-
-
 def Graphique_comparaison_avec_sans(corps, titre, outfile=None):
     fig = plot.figure()
     fig.tight_layout()
