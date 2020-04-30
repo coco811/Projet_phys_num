@@ -2,6 +2,7 @@ from Simulation_N_corps import extraction_donnees
 from Simulation_N_corps import code_simulation as sm1
 from Simulation_N_corps import stockage_des_liste
 from Simulation_N_corps import Graph_2
+from Simulation_N_corps import integrateur as inte
 
 sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0,0)}
 mercury = {"position": sm1.point(0, 5.7e10, 0), "masse": 3.285e23, "vitesse": sm1.point(47000, 0, 0)}
@@ -13,11 +14,11 @@ saturn = {"position": sm1.point(0, 1.4e12, 0), "masse": 5.7e26, "vitesse": sm1.p
 uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.point(6835, 0, 0)}
 neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.point(5477, 0, 0)}
 pluto = {"position": sm1.point(0, 3.7e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 0, 0)}
+satelite={"position": sm1.point(0, 1.0e10, 0), "masse":  1e23, "vitesse": sm1.point(3e4, 0, 0)}
 
 if __name__ == "__main__":
 
     "  Simulation  "
-
 
     "  systeme solaire classique  "
 
@@ -32,8 +33,12 @@ if __name__ == "__main__":
         sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
         sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="Neptune "),
     ]
-    # mouvement_complet = sm1.run_simulation(corps_simulation_complete_systeme, pas_temps=12500, nombre_de_pas=400000,frequence=1000)
-    # mouvement_complet=stockage_des_liste.avec_neptune()
+    """ 
+    pas_temps=86400 [nb seconde]
+    nombre_de_pas=([nb ans] *[nb jours])
+    """
+    # integration=inte.euler(corps_simulation_complete_systeme,pas_temps=2*86400)
+    # mouvement_complet = sm1.run_simulation(integration, nombre_de_pas=(165*365/2), frequence=1)
     # sm1.Graphique_plusieurs_corps(mouvement_complet,"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
 
 
@@ -49,10 +54,8 @@ if __name__ == "__main__":
         sm1.corps(position=saturn["position"], masse=saturn["masse"], vitesse=saturn["vitesse"], nom="Saturn"),
         sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
     ]
-
-    # mouvement_complet_sans_Neptune = sm1.run_simulation(corps_simulation_sans_Neptune, pas_temps=10000, nombre_de_pas=250000,
-    #                                                     frequence=1000)
-    # mouvement_complet_sans_Neptune = stockage_des_liste.sans_neptune()
+    # integration = inte.euler(corps_simulation_sans_Neptune, pas_temps=2 * 86400)
+    # mouvement_complet_sans_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165*365), frequence=1)
     # sm1.Graphique_plusieurs_corps(mouvement_complet_sans_Neptune, "Simulation de l'orbite des planètes géantes sans Neptune", 5, 8, outfile=None)
 
 
