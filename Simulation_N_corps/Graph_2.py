@@ -3,6 +3,7 @@ import random
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plot
 import numpy as np
+import random as ran
 
 def Graphique_comparaison_avec_sans(corps, titre, outfile=None):
     fig = plot.figure()
@@ -13,10 +14,6 @@ def Graphique_comparaison_avec_sans(corps, titre, outfile=None):
     for i in range(len(corps)):
         for corps_obs in corps[i]:
             if corps_obs['nom'] !='Soleil':
-                r = random.random()
-                b = random.random()
-                g = random.random()
-                couleur = (r, g, b)
                 max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
                 if max_dim > max_range:
                     max_range = max_dim
@@ -25,9 +22,9 @@ def Graphique_comparaison_avec_sans(corps, titre, outfile=None):
                 corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[i][0]["z"])
 
                 if corps_obs['nom']=='Simulation\n avec Neptune ':
-                    ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+                    ax.scatter(corps_obs["x"], corps_obs["y"], marker='.',c='lightblue',label=corps_obs["nom"])
                 else:
-                    ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c=couleur,
+                    ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c='k',marker='+',
                         label=corps_obs["nom"])
     plot.title(titre)
     ax.set_xlim([-max_range, max_range])
@@ -56,10 +53,6 @@ def graph2d_compa(corps, titre, outfile=None):
     for i in range(len(corps)):
         for corps_obs in corps[i]:
             if corps_obs['nom'] != 'Soleil':
-                r = random.random()
-                b = random.random()
-                g = random.random()
-                couleur = (r, g, b)
                 max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
                 if max_dim > max_range:
                     max_range = max_dim
@@ -67,9 +60,9 @@ def graph2d_compa(corps, titre, outfile=None):
                 corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[i][0]["y"])
 
                 if corps_obs['nom'] == 'Simulation\n avec Neptune ':
-                    ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"], marker='1')
+                    ax.scatter(corps_obs["x"], corps_obs["y"],c='y',label=corps_obs["nom"],alpha=0.3)
                 else:
-                    ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,
+                    ax.plot(corps_obs["x"], corps_obs["y"], c='k',
                             label=corps_obs["nom"])
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
