@@ -1,6 +1,7 @@
 from Simulation_N_corps import extraction_donnees
 from Simulation_N_corps import code_simulation as sm1
 from Simulation_N_corps import stockage_des_liste
+from Simulation_N_corps import integrateur as inte
 
 vrai_sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0, 1700)}
 sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0, 0)}
@@ -15,7 +16,7 @@ neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.po
 pluto = {"position": sm1.point(0, 5.9e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 1700, 1000)}
 
 # test planète rogue
-rogue_1 = {"position": sm1.point(3.7e12, 3.7e12, 0), "masse": 2e28, "vitesse": sm1.point(1300, -1300, 300)}
+rogue_1 = {"position": sm1.point(3e12, 3.7e10, 0), "masse": 2e28, "vitesse": sm1.point(-15300, 1300, 300)}
 
 # Planéte 9
 #  situé a environ (350-800 ua) et masse environ (10mt)
@@ -38,7 +39,8 @@ if __name__ == '__main__':
         sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton")
     ]
     # graph 3d  du mouvement
-    # mouvement_complet_avec_mouve_galatic = sm1.run_simulation(corps_simulation_complete_systeme, pas_temps=50000,nombre_de_pas=200000,frequence=1000)
+    # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
+    # mouvement_complet_avec_mouve_galatic = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
     # print(mouvement_complet_avec_mouve_galatic)
     # mouvement_complet_avec_mouve_galatic= stockage_des_liste.mouve_galatic_avec_y()
     # sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic,"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
@@ -62,10 +64,11 @@ if __name__ == '__main__':
         sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton"),
         sm1.corps(position=planete_9["position"], masse=planete_9["masse"], vitesse=planete_9["vitesse"],
                   nom=" Première X ")]
-    # mouvement_complet_corps_simulation_planete_9 = sm1.run_simulation(corps_simulation_planete_9, pas_temps=500000, nombre_de_pas=250000,
-    #                                                     frequence=1000)
-    # mouvement_complet_avec_rogue_1= stockage_des_liste.planet_9()
-    # sm1.Graphique_plusieurs_corps(mouvement_complet_corps_simulation_planete_9,"Simulation de l'orbite des planètes géantes \n avec une planète 9",8, 11, outfile=None)
+
+    # integration = inte.euler(corps_simulation_planete_9, pas_temps=2 * 86400)
+    # mouvement_complet_avec_planete_9 = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
+    # mouvement_complet_avec_planete_9= stockage_des_liste.planet_9()
+    # sm1.Graphique_plusieurs_corps_sans_mvt_sol(mouvement_complet_corps_simulation_planete_9,"Simulation de l'orbite des planètes géantes \n avec une planète 9",8, 11, outfile=None)
 
 
     "Simulation Rogue 1 Masse:2xjupitere"
@@ -84,9 +87,9 @@ if __name__ == '__main__':
         sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton"),
         sm1.corps(position=rogue_1["position"], masse=rogue_1["masse"], vitesse=rogue_1["vitesse"],
                   nom=" Première Rogue ")]
-    # mouvement_complet_avec_rogue_1 = sm1.run_simulation(corps_simulation_rogue_1, pas_temps=50000, nombre_de_pas=250000,
-    #                                                     frequence=1000)
+    integration = inte.euler(corps_simulation_rogue_1, pas_temps=2 * 86400)
+    mouvement_complet_avec_rogue_1 = sm1.run_simulation(integration,nombre_de_pas=10*365/2,frequence=1)
     # mouvement_complet_avec_rogue_1= stockage_des_liste.rogue_1()
-    # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_rogue_1,
-    #                               "Simulation de l'orbite des planètes géantes \n avec une planète vagabonde",
-    #                               5, 11, outfile=None)
+    sm1.Graphique_plusieurs_corps_sans_mvt_sol(mouvement_complet_avec_rogue_1,
+                                  "Simulation de l'orbite des planètes géantes \n avec une planète vagabonde",
+                                  0, 11, outfile=None)
