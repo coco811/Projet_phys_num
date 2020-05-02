@@ -19,7 +19,7 @@ neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.po
 pluto = {"position": sm1.point(0, 5.9e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 1700, 1000)}
 
 # test planète rogue
-rogue_1 = {"position": sm1.point(3e12, 3.7e10, 0), "masse": 2e28, "vitesse": sm1.point(-15300, 1300, 300)}
+rogue_1 = {"position": sm1.point(3e12, 3.7e10, 0), "masse": 1e28, "vitesse": sm1.point(-5300, 1300, 300)}
 
 # Planéte 9
 #  situé a environ (350-800 ua) et masse environ (10mt)
@@ -48,9 +48,9 @@ if __name__ == '__main__':
 
     # with open('mouvement_complet_avec_mouve_galatic.p', 'wb') as fp:
     #     pickle.dump( mouvement_complet_avec_mouve_galatic , fp, protocol=pickle.HIGHEST_PROTOCOL)
-    with open('mouvement_complet_avec_mouve_galatic.p', 'rb') as fp:
-        mouvement_complet_avec_mouve_galatic_data = pickle.load(fp)
-    sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic_data[0],"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
+    # with open('mouvement_complet_avec_mouve_galatic.p', 'rb') as fp:
+    #     mouvement_complet_avec_mouve_galatic_data = pickle.load(fp)
+    # sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic_data[0],"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
 
     # graph 2d
     # mouvement_complet_avec_mouve_galatic_juste_z= stockage_des_liste.mouve_galatic_juste_z()
@@ -96,7 +96,7 @@ if __name__ == '__main__':
                   nom=" Première Rogue ")]
     # integration = inte.euler(corps_simulation_rogue_1, pas_temps=2 * 86400)
     # mouvement_complet_avec_rogue_1 = sm1.run_simulation(integration,nombre_de_pas=10*365/2,frequence=1)
-
-    # sm1.Graphique_plusieurs_corps_sans_mvt_sol(mouvement_complet_avec_rogue_1,
+    #
+    # sm1.Graphique_plusieurs_corps_sans_mvt_sol(mouvement_complet_avec_rogue_1[0],
     #                               "Simulation de l'orbite des planètes géantes \n avec une planète vagabonde",
     #                               0, 11, outfile=None)
