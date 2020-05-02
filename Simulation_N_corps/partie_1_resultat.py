@@ -16,7 +16,7 @@ earth = {"position": sm1.point(0, 1.5e11, 0), "masse": 6e24, "vitesse": sm1.poin
 mars = {"position": sm1.point(0, 2.2e11, 0), "masse": 2.4e24, "vitesse": sm1.point(24000, 0, 0)}
 jupiter = {"position": sm1.point(0, 7.7e11, 0), "masse": 1e28, "vitesse": sm1.point(13000, 0, 0)}
 saturn = {"position": sm1.point(0, 1.4e12, 0), "masse": 5.7e26, "vitesse": sm1.point(9000, 0, 0)}
-uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.point(6835, 0, 0)}
+uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.point(7135, 0, 0)}
 neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.point(5477, 0, 0)}
 pluto = {"position": sm1.point(0, 3.7e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 0, 0)}
 
@@ -48,12 +48,12 @@ if __name__ == "__main__":
 
 
     # temps_ini = time.time()
-    # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
-    # mouvement_complet_avec_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165 * 365 / 2), frequence=1)
+    integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
+    mouvement_complet_avec_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165 * 365 / 2), frequence=1)
     # temps_final = time.time()
     # print(temps_final - temps_ini)
-    # with open('mouvement_avec_neptune.p', 'wb') as fp:
-    #     pickle.dump( mouvement_complet_avec_Neptune , fp, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('mouvement_avec_neptune.p', 'wb') as fp:
+        pickle.dump( mouvement_complet_avec_Neptune , fp, protocol=pickle.HIGHEST_PROTOCOL)
 
     # with open('mouvement_avec_neptune.p', 'rb') as fp:
     #     mouvement_complet_avec_Neptune_data = pickle.load(fp)
@@ -72,11 +72,11 @@ if __name__ == "__main__":
         sm1.corps(position=saturn["position"], masse=saturn["masse"], vitesse=saturn["vitesse"], nom="Saturn"),
         sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
     ]
-    # integration = inte.euler(corps_simulation_sans_Neptune, pas_temps=2 * 86400)
-    # mouvement_complet_sans_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165 * 365/2), frequence=1)
+    integration = inte.euler(corps_simulation_sans_Neptune, pas_temps=2 * 86400)
+    mouvement_complet_sans_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165 * 365/2), frequence=1)
 
-    # with open('mouvement_sans_neptune.p', 'wb') as fp:
-    #     pickle.dump( mouvement_complet_sans_Neptune , fp, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('mouvement_sans_neptune.p', 'wb') as fp:
+        pickle.dump( mouvement_complet_sans_Neptune , fp, protocol=pickle.HIGHEST_PROTOCOL)
 
     # with open('mouvement_sans_neptune.p', 'rb') as fp:
     #     mouvement_complet_sans_Neptune_data = pickle.load(fp)
@@ -93,23 +93,23 @@ if __name__ == "__main__":
     with open('mouvement_avec_neptune.p', 'rb') as fp:
         mouvement_complet_avec_Neptune_data = pickle.load(fp)
 
-    # mouvement_pour_graph=[]
-    # mvt=[]
-    # mouvement_complet_avec = mouvement_complet_avec_Neptune_data[0]
-    # mouvement_complet_sans = mouvement_complet_sans_Neptune_data[0]
-    # mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
-    # mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
-    # mouvement_pour_graph.append([mouvement_complet_avec[0],mouvement_complet_avec[7]])
-    # mouvement_pour_graph.append([mouvement_complet_sans[0], mouvement_complet_sans[7]])
-    #
+    mouvement_pour_graph=[]
+    mvt=[]
+    mouvement_complet_avec = mouvement_complet_avec_Neptune_data[0]
+    mouvement_complet_sans = mouvement_complet_sans_Neptune_data[0]
+    mouvement_complet_avec[7]['nom'] = 'Simulation\n avec Neptune '
+    mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
+    mouvement_pour_graph.append([mouvement_complet_avec[0],mouvement_complet_avec[7]])
+    mouvement_pour_graph.append([mouvement_complet_sans[0], mouvement_complet_sans[7]])
+
     # Graph_2.Graphique_comparaison_avec_sans( mouvement_pour_graph,
     #               "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
     #               outfile='avec_sans_3d')
-    # Graph_2.graph2d_compa(mouvement_pour_graph,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
+    Graph_2.graph2d_compa(mouvement_pour_graph,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
 
     "  Comparaison reference et simulation Uranus Avec neptune  "
 
-    mouvement_complet = mouvement_complet_avec_Neptune_data [0]
+    mouvement_complet = mouvement_complet_avec_Neptune_data[0]
     nom_fichier = 'horizons_results-3.txt'
     nom_planete = 'Réference'
     mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
