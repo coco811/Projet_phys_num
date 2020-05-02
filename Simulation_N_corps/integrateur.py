@@ -40,3 +40,4 @@ class euler:
     def calcul_pas_graviter(self):
         self.calcul_vitesse()
         self.calcul_position()
+
