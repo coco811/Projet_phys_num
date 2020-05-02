@@ -1,5 +1,5 @@
 import random
-
+from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plot
 import numpy as np
 
@@ -66,8 +66,6 @@ def plot_energie(corps, mouvemnt_corps, indice_planete):
     plot.title(f'Énergie cinétique de {vitesse[indice_planete]["nom"]} selon le temps ')
     ax.set_xlabel('Temps[s]')
     ax.set_ylabel('Énergie cinétique [J]')
-    # print(nb_pas/(365/3))
-    # plot.xticks(np.arange(0, int(nb_pas/(365/3)+2), step=1) )
     plot.show()
 
 
