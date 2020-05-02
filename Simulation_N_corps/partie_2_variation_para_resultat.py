@@ -14,7 +14,7 @@ earth = {"position": sm1.point(0, 1.5e11, 0), "masse": 6e24, "vitesse": sm1.poin
 mars = {"position": sm1.point(0, 2.2e11, 0), "masse": 2.4e24, "vitesse": sm1.point(24000, 0, 0)}
 jupiter = {"position": sm1.point(0, 7.7e11, 0), "masse": 1e28, "vitesse": sm1.point(13000, 0, 0)}
 saturn = {"position": sm1.point(0, 1.4e12, 0), "masse": 5.7e26, "vitesse": sm1.point(9000, 0, 0)}
-uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.point(6835, 0, 0)}
+uranus = {"position": sm1.point(0, 2.8e12, 0), "masse": 8.7e25, "vitesse": sm1.point(7135, 0, 0)}
 neptune = {"position": sm1.point(0, 4.5e12, 0), "masse": 1e26, "vitesse": sm1.point(5477, 0, 0)}
 pluto = {"position": sm1.point(0, 5.9e12, 0), "masse": 1.3e22, "vitesse": sm1.point(4748, 1700, 1000)}
 
@@ -43,11 +43,11 @@ if __name__ == '__main__':
     ]
 
     # graph 3d  du mouvement
-    # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
-    # mouvement_complet_avec_mouve_galatic = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
+    integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
+    mouvement_complet_avec_mouve_galatic = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
 
-    # with open('mouvement_complet_avec_mouve_galatic.p', 'wb') as fp:
-    #     pickle.dump( mouvement_complet_avec_mouve_galatic , fp, protocol=pickle.HIGHEST_PROTOCOL)
+    with open('mouvement_complet_avec_mouve_galatic.p', 'wb') as fp:
+        pickle.dump( mouvement_complet_avec_mouve_galatic , fp, protocol=pickle.HIGHEST_PROTOCOL)
     # with open('mouvement_complet_avec_mouve_galatic.p', 'rb') as fp:
     #     mouvement_complet_avec_mouve_galatic_data = pickle.load(fp)
     # sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic_data[0],"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
