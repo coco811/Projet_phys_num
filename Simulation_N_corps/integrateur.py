@@ -1,5 +1,4 @@
 import math
-
 from Simulation_N_corps import code_simulation as code
 
 
