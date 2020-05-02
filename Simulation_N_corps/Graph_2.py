@@ -105,11 +105,7 @@ def graph2d_ref(corps, titre, outfile=None):
             corps_obs["x"] = np.array(corps_obs["x"]) - np.array(soleil_2d["x"])
             corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
 
-        if corps_obs['nom']=='Simulation\n avec Neptune ':
-            ax.plot(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"])
-
-        else:
-            ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
+        ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
 
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
