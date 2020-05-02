@@ -7,7 +7,7 @@ try:
     import cPickle as pickle
 except ImportError:  # python 3.x
     import pickle
-
+import time
 
 sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0, 0)}
 mercury = {"position": sm1.point(0, 5.7e10, 0), "masse": 3.285e23, "vitesse": sm1.point(47000, 0, 0)}
@@ -46,15 +46,18 @@ if __name__ == "__main__":
     # mouvement_complet_energie = sm1.run_simulation(integration, nombre_de_pas=(50*365/3), frequence=1)
     # sm1.plot_energie(corps_simulation_complete_systeme,mouvement_complet_energie,4)
 
+
+    # temps_ini = time.time()
     # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
     # mouvement_complet_avec_Neptune = sm1.run_simulation(integration, nombre_de_pas=(165 * 365 / 2), frequence=1)
-
+    # temps_final = time.time()
+    # print(temps_final - temps_ini)
     # with open('mouvement_avec_neptune.p', 'wb') as fp:
     #     pickle.dump( mouvement_complet_avec_Neptune , fp, protocol=pickle.HIGHEST_PROTOCOL)
-    #
+
     # with open('mouvement_avec_neptune.p', 'rb') as fp:
     #     mouvement_complet_avec_Neptune_data = pickle.load(fp)
-    #
+
     # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_Neptune[0],"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
 
     "   systeme solaire sans neptune  "
