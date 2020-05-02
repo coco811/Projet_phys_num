@@ -43,11 +43,11 @@ if __name__ == '__main__':
     ]
 
     # graph 3d  du mouvement
-    integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
-    mouvement_complet_avec_mouve_galatic = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
+    # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
+    # mouvement_complet_avec_mouve_galatic = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
 
-    with open('mouvement_complet_avec_mouve_galatic.p', 'wb') as fp:
-        pickle.dump( mouvement_complet_avec_mouve_galatic , fp, protocol=pickle.HIGHEST_PROTOCOL)
+    # with open('mouvement_complet_avec_mouve_galatic.p', 'wb') as fp:
+    #     pickle.dump( mouvement_complet_avec_mouve_galatic , fp, protocol=pickle.HIGHEST_PROTOCOL)
     # with open('mouvement_complet_avec_mouve_galatic.p', 'rb') as fp:
     #     mouvement_complet_avec_mouve_galatic_data = pickle.load(fp)
     # sm1.Graphique_plusieurs_corps_galac(mouvement_complet_avec_mouve_galatic_data[0],"Simulation de l'orbite des planètes géantes \n avec le mouvement du soleil autour du centre de la galaxie",5, 10, outfile=None)
