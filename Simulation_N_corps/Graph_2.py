@@ -60,7 +60,7 @@ def graph2d_compa(corps, titre, outfile=None):
                 corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[i][0]["y"])
 
                 if corps_obs['nom'] == 'Simulation\n avec Neptune ':
-                    ax.scatter(corps_obs["x"], corps_obs["y"],c='y',label=corps_obs["nom"],alpha=0.3)
+                    ax.plot(corps_obs["x"], corps_obs["y"],marker='+',c='y',label=corps_obs["nom"],alpha=0.3)
                 else:
                     ax.plot(corps_obs["x"], corps_obs["y"], c='k',
                             label=corps_obs["nom"])
@@ -106,7 +106,7 @@ def graph2d_ref(corps, titre, outfile=None):
             corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
 
         if corps_obs['nom']=='Simulation\n avec Neptune ':
-            ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+            ax.plot(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"])
 
         else:
             ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
