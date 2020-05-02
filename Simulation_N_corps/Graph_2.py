@@ -89,26 +89,23 @@ def graph2d_ref(corps, titre, outfile=None):
 
     soleil_2d = corps[1][0]
     corps[1] = corps[1][7]
-
     for corps_obs in corps:
 
         r = random.random()
         b = random.random()
         g = random.random()
         couleur = (r, g, b)
-        max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
 
-        if max_dim > max_range:
-            max_range = max_dim
 
         if corps_obs['nom'] != 'Réference':
-            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(soleil_2d["x"])
-            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
+            max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
+            if max_dim > max_range:
+                max_range = max_dim
 
         ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
 
-    ax.set_xlim([-max_range, max_range])
-    ax.set_ylim([-max_range, max_range])
+    ax.set_xlim([-max_range*1.2, max_range*1.2])
+    ax.set_ylim([-max_range*1.2, max_range*1.2])
     ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
     ax.set_xlabel('Position en x [$10^{12}$m]', labelpad=10)
     ax.set_ylabel('Position en y [$10^{12}$m]', labelpad=10)
@@ -144,17 +141,12 @@ def graph3d_ref(corps, titre, outfile=None):
         if max_dim > max_range:
             max_range = max_dim
 
-        if corps_obs['nom'] != 'Réference':
-            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(soleil_2d["x"])
-            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
-            corps_obs["z"] = np.array(corps_obs["z"]) - np.array(soleil_2d["z"])
-
         if corps_obs['nom']=='Simulation\n avec Neptune ':
             ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
 
         else:
             ax.plot(corps_obs["x"], corps_obs["y"],corps_obs['z'], c=couleur,label=corps_obs["nom"])
-
+    plot.scatter(0,0,0,c='yellow')
     plot.title(titre)
     ax.set_xlim([-max_range, max_range])
     ax.set_ylim([-max_range, max_range])
