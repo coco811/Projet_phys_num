@@ -37,9 +37,14 @@ if __name__ == "__main__":
     pas_temps=86400 [nb seconde]
     nombre_de_pas=([nb ans] *[nb jours])
     """
-    # integration=inte.euler(corps_simulation_complete_systeme,pas_temps=2*86400)
-    # mouvement_complet = sm1.run_simulation(integration, nombre_de_pas=(165*365/2), frequence=1)
-    # sm1.Graphique_plusieurs_corps(mouvement_complet,"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
+
+    integration=inte.euler(corps_simulation_complete_systeme,pas_temps=3*86400)
+    mouvement_complet = sm1.run_simulation(integration, nombre_de_pas=(50*365/3), frequence=1)
+    sm1.plot_energie(corps_simulation_complete_systeme,mouvement_complet,4)
+
+    # integration = inte.euler(corps_simulation_complete_systeme, pas_temps=2 * 86400)
+    # mouvement_complet = sm1.run_simulation(integration, nombre_de_pas=(165 * 365 / 2), frequence=1)
+    # sm1.Graphique_plusieurs_corps(mouvement_complet[0],"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
 
 
     "   systeme solaire sans neptune  "
