@@ -23,7 +23,8 @@ rogue_1 = {"position": sm1.point(3e12, 3.7e10, 0), "masse": 1e28, "vitesse": sm1
 
 # Planéte 9
 #  situé a environ (350-800 ua) et masse environ (10mt)
-planete_9 = {"position": sm1.point(0, 350*1.5e11, 0), "masse": 10*6e24, "vitesse": sm1.point(1000,0, 0)}
+planete_9_min = {"position": sm1.point(0, 3e13, 0), "masse": 10*6e24, "vitesse": sm1.point(3267.80,0, 0)}
+planete_9_max = {"position": sm1.point(0, 5e13, 0), "masse": 10*6e24, "vitesse": sm1.point(2109.36,0, 0)}
 
 if __name__ == '__main__':
 
@@ -58,7 +59,7 @@ if __name__ == '__main__':
 
     "Simulation planete X(9) "
 
-    corps_simulation_planete_9 = [
+    corps_simulation_planete_9_min = [
         sm1.corps(position=sun["position"], masse=sun["masse"], vitesse=sun["vitesse"], nom="Sun"),
         sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
         sm1.corps(position=venus["position"], masse=venus["masse"], vitesse=venus["vitesse"], nom="Venus"),
@@ -69,13 +70,34 @@ if __name__ == '__main__':
         sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
         sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="Neptune "),
         sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton"),
-        sm1.corps(position=planete_9["position"], masse=planete_9["masse"], vitesse=planete_9["vitesse"],
+        sm1.corps(position=planete_9_min["position"], masse=planete_9_min["masse"], vitesse=planete_9_min["vitesse"],
                   nom=" Première 9 ")]
 
-    # integration = inte.euler(corps_simulation_planete_9, pas_temps=2 * 86400)
-    # mouvement_complet_avec_planete_9 = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
-    #
-    # sm1.Graphique_plusieurs_corps(mouvement_complet_corps_simulation_planete_9,"Simulation de l'orbite des planètes géantes \n avec une planète 9",8 , 11, outfile=None)
+    # integration = inte.euler(corps_simulation_planete_9_min, pas_temps=7 * 86400)
+    # mouvement_complet_avec_planete_9_min = sm1.run_simulation(integration,nombre_de_pas=1000*365/7,frequence=1)
+
+    # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_planete_9_min[0],"Simulation du système solaire (Planètes Géantes) \n avec une planète 9",8, 11, outfile=None)
+
+    "Simulation planete X(9) max "
+
+    corps_simulation_planete_9_max = [
+        sm1.corps(position=sun["position"], masse=sun["masse"], vitesse=sun["vitesse"], nom="Sun"),
+        sm1.corps(position=mercury["position"], masse=mercury["masse"], vitesse=mercury["vitesse"], nom="Mercure"),
+        sm1.corps(position=venus["position"], masse=venus["masse"], vitesse=venus["vitesse"], nom="Venus"),
+        sm1.corps(position=earth["position"], masse=earth["masse"], vitesse=earth["vitesse"], nom="Earth"),
+        sm1.corps(position=mars["position"], masse=mars["masse"], vitesse=mars["vitesse"], nom="Mars"),
+        sm1.corps(position=jupiter["position"], masse=jupiter["masse"], vitesse=jupiter["vitesse"], nom="Jupiter"),
+        sm1.corps(position=saturn["position"], masse=saturn["masse"], vitesse=saturn["vitesse"], nom="Saturn"),
+        sm1.corps(position=uranus["position"], masse=uranus["masse"], vitesse=uranus["vitesse"], nom="Uranus "),
+        sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="Neptune "),
+        sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton"),
+        sm1.corps(position=planete_9_max["position"], masse=planete_9_max["masse"], vitesse=planete_9_max["vitesse"],
+                  nom=" Planète 9 ")]
+
+    # integration = inte.euler(corps_simulation_planete_9_max, pas_temps=7 * 86400)
+    # mouvement_complet_avec_planete_9_max = sm1.run_simulation(integration, nombre_de_pas=1000 * 365 / 7, frequence=1)
+
+    # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_planete_9_max[0],"Simulation du système solaire (Planètes Géantes) \n avec une planète 9", 8, 11,outfile=None)
 
 
     "Simulation Rogue 1 Masse:2xjupitere"
