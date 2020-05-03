@@ -101,7 +101,8 @@ def graph2d_ref(corps, titre, outfile=None):
             max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]))
             if max_dim > max_range:
                 max_range = max_dim
-
+            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(soleil_2d["x"])
+            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
         ax.plot(corps_obs["x"], corps_obs["y"], c=couleur,label=corps_obs["nom"])
 
     ax.set_xlim([-max_range*1.2, max_range*1.2])
@@ -142,7 +143,10 @@ def graph3d_ref(corps, titre, outfile=None):
             max_range = max_dim
 
         if corps_obs['nom']=='Simulation\n avec Neptune ':
-            ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"],marker='1')
+            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(soleil_2d["x"])
+            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(soleil_2d["y"])
+            corps_obs["z"] = np.array(corps_obs["z"]) - np.array(soleil_2d["z"])
+            ax.plot(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"])
 
         else:
             ax.plot(corps_obs["x"], corps_obs["y"],corps_obs['z'], c=couleur,label=corps_obs["nom"])
