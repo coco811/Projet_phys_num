@@ -89,16 +89,17 @@ if __name__ == "__main__":
 
     with open('mouvement_sans_neptune.p', 'rb') as fp:
         mouvement_complet_sans_Neptune_data = pickle.load(fp)
-
+    #
     with open('mouvement_avec_neptune.p', 'rb') as fp:
         mouvement_complet_avec_Neptune_data = pickle.load(fp)
-    #
-    # " Différence de position dans l'orbite Avec\sans"
-    rayon_avec=np.sqrt(np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][-1])**2+np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][-1])**2)
-    rayon_sans = np.sqrt(np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][-1]) ** 2 + np.array(
-        mouvement_complet_sans_Neptune_data[0][7]['x'][-1]) ** 2)
-    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_sans.mean()) * 100} % ')
-    #
+
+    " Différence de position dans l'orbite Avec\sans"
+    # rayon_avec=np.sqrt(np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][-1])**2+np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][-1])**2)
+    # rayon_sans = np.sqrt(np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][-1]) ** 2 + np.array(
+    #     mouvement_complet_sans_Neptune_data[0][7]['x'][-1]) ** 2)
+    # print(f'La différence entre les deux rayons est de: {(abs(rayon_sans.mean() - rayon_avec.mean())):.3e}')
+    # print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_sans.mean()) * 100:.3} % ')
+
     # mouvement_pour_graph=[]
     # mvt=[]
     # mouvement_complet_avec = mouvement_complet_avec_Neptune_data[0]
@@ -107,49 +108,59 @@ if __name__ == "__main__":
     # mouvement_complet_sans[7]['nom'] = 'Simulation\n sans Neptune '
     # mouvement_pour_graph.append([mouvement_complet_avec[0],mouvement_complet_avec[7]])
     # mouvement_pour_graph.append([mouvement_complet_sans[0], mouvement_complet_sans[7]])
-    #
+
     # Graph_2.Graphique_comparaison_avec_sans( mouvement_pour_graph,
     #               "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",
     #               outfile='avec_sans_3d')
-    # Graph_2.graph2d_compa(mouvement_pour_graph,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
+    # Graph_2.graph2d_compa(mouvement_pour_graph, "Graphique de comparaison avec et sans l'influence de Neptune\n sur l'orbite d'Uranus",outfile=None)
 
     " Comparaison reference et simulation Uranus avec neptune"
 
-    # mouvement_complet = mouvement_complet_avec_Neptune_data[0]
-    # nom_fichier = 'horizons_results-3.txt'
-    # nom_planete = 'Réference'
-    # mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
-    # mouvement_complet[7]['nom'] = 'Simulation\n avec Neptune '
-    # mouvement_ref.append(mouvement_complet)
-    # Graph_2.graph3d_ref(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ", outfile='ref_Avec_3d')
-    # Graph_2.graph2d_ref(mouvement_ref,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
+    mouvement_complet = mouvement_complet_avec_Neptune_data[0]
+    nom_fichier = 'horizons_results-3.txt'
+    nom_planete = 'Réference'
+    mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
+    mouvement_complet[7]['nom'] = 'Simulation\n avec Neptune '
+    mouvement_ref.append(mouvement_complet)
+
+    # Graph_2.graph3d_ref(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ", outfile=None)
+    # Graph_2.graph2d_ref(mouvement_ref,"Graphique de comparaison entre la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
 
     "Différence de position dansl'orbite Avec \ ref"
-    # rayon_avec = np.sqrt((np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['y'][0:101]))** 2 +(np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['x'][0:101])) ** 2)
-    # rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+    rayon_avec = np.sqrt((np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['y'][0:101]))** 2 +(np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['x'][0:101])) ** 2)
+    rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+    print(f'{rayon_ref.mean():.5e}')
+    print(f'{rayon_avec.mean():.5e}')
+    print(
+        f'La différence entre les deux rayons est de: {(abs(rayon_ref.mean() - rayon_avec.mean())):.5e}  ')
 
-    # print(f'Le pourcentage de différence entre les deux rayons est de: {(1-abs((rayon_avec.mean()))/rayon_ref.mean())*100} % ')
+    print(f'Le pourcentage de différence entre les deux rayons est de: {(1-abs((rayon_avec.mean()))/rayon_ref.mean())*100:.5} % ')
 
     "comparaison reference et simulation Uranus sans neptune"
 
-    # mouvement_complet =mouvement_complet_sans_Neptune_data[0]
-    # nom_fichier = 'horizons_results-3.txt'
-    # nom_planete = 'Réference'
-    # mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
-    # mouvement_complet[7]['nom'] = 'Simulation \n sans Neptune '
-    # mouvement_ref.append(mouvement_complet)
-    # Graph_2.graph3d_ref(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus sans l'influence de Neptune ", outfile=None)
-    #
-    # Graph_2.graph2d_ref(mouvement_ref,
-    #             "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
-    #             outfile=None)
+    mouvement_complet =mouvement_complet_sans_Neptune_data[0]
+    nom_fichier = 'horizons_results-3.txt'
+    nom_planete = 'Réference'
+    mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
+    mouvement_complet[7]['nom'] = 'Simulation \n sans Neptune '
+    mouvement_ref.append(mouvement_complet)
+    # Graph_2.graph3d_ref(mouvement_ref, "Graphique de comparaison entre la référence \n de l'orbite d'Uranus sans l'influence de Neptune ", outfile=None)
 
-    "Différence de position dansl'orbite Avec \ ref"
-    # rayon_avec = np.sqrt((np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][0:101]) - np.array(
-    #     mouvement_complet_sans_Neptune_data[0][0]['y'][0:101])) ** 2 + (
-    #                                  np.array(mouvement_complet_sans_Neptune_data[0][7]['x'][0:101]) - np.array(
-    #                              mouvement_complet_sans_Neptune_data[0][0]['x'][0:101])) ** 2)
-    # rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+    Graph_2.graph2d_ref(mouvement_ref,
+                "Graphique de comparaison entre la référence \n de l'orbite d'Uranus sans l'influence de Neptune ",
+                outfile=None)
 
-    # print(
-    #     f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_ref.mean()) * 100} % ')
+    "Différence de position dansl'orbite sans \ ref"
+    rayon_sans = np.sqrt((np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][0:101]) - np.array(
+        mouvement_complet_sans_Neptune_data[0][0]['y'][0:101])) ** 2 + (
+                                     np.array(mouvement_complet_sans_Neptune_data[0][7]['x'][0:101]) - np.array(
+                                 mouvement_complet_sans_Neptune_data[0][0]['x'][0:101])) ** 2)
+    rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+
+    print(f'{rayon_ref.mean():.5e}')
+    print(f'{rayon_sans.mean():.5e}')
+    print(
+        f'La différence entre les deux rayons est de: {(abs(rayon_ref.mean() - rayon_sans.mean())):.5e}  ')
+
+    print(
+        f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_sans.mean())) / rayon_ref.mean()) * 100} % ')
