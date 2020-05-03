@@ -5,7 +5,7 @@ try:
 except ImportError:  # python 3.x
     import pickle
 from Simulation_N_corps import integrateur as inte
-
+import numpy as np
 vrai_sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0, 1700)}
 sun = {"position": sm1.point(0, 0, 0), "masse": 2e30, "vitesse": sm1.point(0, 0, 0)}
 mercury = {"position": sm1.point(0, 5.7e10, 0), "masse": 3.285e23, "vitesse": sm1.point(47000, 0, 0)}
@@ -94,11 +94,27 @@ if __name__ == '__main__':
         sm1.corps(position=planete_9_max["position"], masse=planete_9_max["masse"], vitesse=planete_9_max["vitesse"],
                   nom=" Planète 9 ")]
 
-    # integration = inte.euler(corps_simulation_planete_9_max, pas_temps=7 * 86400)
-    # mouvement_complet_avec_planete_9_max = sm1.run_simulation(integration, nombre_de_pas=1000 * 365 / 7, frequence=1)
+    integration = inte.euler(corps_simulation_planete_9_max, pas_temps=7 * 86400)
+    mouvement_complet_avec_planete_9_max = sm1.run_simulation(integration, nombre_de_pas=1000 * 365 / 7, frequence=1)
 
+    # nom_fichier = 'horizons_results-3.txt'
+    # nom_planete = 'Réference'
+    # mouvement_ref = extraction_donnees.extraire_donne(nom_fichier, nom_planete)
+    with open('mouvement_avec_neptune.p', 'rb') as fp:
+        mouvement_ref = pickle.load(fp)
     # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_planete_9_max[0],"Simulation du système solaire (Planètes Géantes) \n avec une planète 9", 8, 11,outfile=None)
+    rayon_avec = np.sqrt((np.array(mouvement_complet_avec_planete_9_max[0][7]['y'][0:101]) - np.array(
+        mouvement_complet_avec_planete_9_max[0][0]['y'][0:101])) ** 2 + (
+                                     np.array(mouvement_complet_avec_planete_9_max[0][7]['x'][0:101]) - np.array(
+                                 mouvement_complet_avec_planete_9_max[0][0]['x'][0:101])) ** 2)
+    rayon_ref = np.sqrt((np.array(mouvement_ref[0][7]['y'])-np.array(mouvement_ref[0][0]['y'])) ** 2 + (np.array(mouvement_ref[0][7]['x'])-np.array(mouvement_ref[0][0]['x'])) ** 2)
+    print(f'{rayon_ref.mean():.5e}')
+    print(f'{rayon_avec.mean():.5e}')
+    print(
+        f'La différence entre les deux rayons est de: {(abs(rayon_ref.mean() - rayon_avec.mean())):.5e}  ')
 
+    print(
+        f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_ref.mean()) * 100:.5} % ')
 
     "Simulation Rogue 1 Masse:2xjupitere"
 
