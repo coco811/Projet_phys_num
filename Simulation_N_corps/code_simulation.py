@@ -69,47 +69,6 @@ def plot_energie(corps, mouvemnt_corps, indice_planete):
     plot.show()
 
 
-def Graphique(corps, titre, outfile=None):
-    fig = plot.figure()
-    fig.tight_layout()
-    ax = fig.add_subplot(1, 1, 1, projection='3d')
-    fig.subplots_adjust(right=0.8)
-    max_range = 0
-    for corps_obs in corps:
-        r = random.random()
-        b = random.random()
-        g = random.random()
-        couleur = (r, g, b)
-        max_dim = max(max(corps_obs["x"]), max(corps_obs["y"]), max(corps_obs["z"]))
-        if max_dim > max_range:
-            max_range = max_dim
-
-        if corps_obs['nom'] != 'Réference':
-            corps_obs["x"] = np.array(corps_obs["x"]) - np.array(corps[0]["x"])
-            corps_obs["y"] = np.array(corps_obs["y"]) - np.array(corps[0]["y"])
-            corps_obs["z"] = np.array(corps_obs["z"]) - np.array(corps[0]["z"])
-
-        if corps_obs['nom'] == 'Simulation\n avec Neptune ':
-            ax.scatter(corps_obs["x"], corps_obs["y"], c=couleur, label=corps_obs["nom"], marker='1')
-        else:
-            ax.plot(corps_obs["x"], corps_obs["y"], corps_obs["z"], c=couleur,
-                    label=corps_obs["nom"])
-    plot.title(titre)
-    ax.set_xlim([-max_range, max_range])
-    ax.set_ylim([-max_range, max_range])
-    ax.set_zlim([-max_range, max_range])
-    ax.legend(loc='center left', bbox_to_anchor=(1.07, 0.5), fontsize=7)
-    ax.set_xlabel('Position en x [ $10^{12}$m]')
-    ax.set_ylabel('Position en y [ $10^{12}$m]')
-    ax.set_zlabel('Position en z [ $10^{12}$m]')
-    ax.xaxis.get_offset_text().set_visible(False)
-    ax.yaxis.get_offset_text().set_visible(False)
-    ax.zaxis.get_offset_text().set_visible(False)
-    if outfile:
-        plot.savefig(outfile)
-    else:
-        plot.show()
-
 
 def Graphique_plusieurs_corps(corps, titre, depart=0, fin=20, outfile=None):
     fig = plot.figure()
