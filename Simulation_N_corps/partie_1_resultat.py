@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # with open('mouvement_avec_neptune.p', 'rb') as fp:
     #     mouvement_complet_avec_Neptune_data = pickle.load(fp)
 
-    # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_Neptune[0],"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
+    # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_Neptune_data[0],"Simulation de l'orbite des planètes géantes",5,9,outfile=None)
 
     "   systeme solaire sans neptune  "
 
@@ -87,19 +87,17 @@ if __name__ == "__main__":
 
     " comparaison avec et sans Neptune de l'orbite d'Uranus"
 
-    # with open('mouvement_sans_neptune.p', 'rb') as fp:
-    #     mouvement_complet_sans_Neptune_data = pickle.load(fp)
-    #
-    # with open('mouvement_avec_neptune.p', 'rb') as fp:
-    #     mouvement_complet_avec_Neptune_data = pickle.load(fp)
+    with open('mouvement_sans_neptune.p', 'rb') as fp:
+        mouvement_complet_sans_Neptune_data = pickle.load(fp)
+
+    with open('mouvement_avec_neptune.p', 'rb') as fp:
+        mouvement_complet_avec_Neptune_data = pickle.load(fp)
     #
     # " Différence de position dans l'orbite Avec\sans"
-    # print(mouvement_complet_sans_Neptune_data[0][7]['y'][-1])
-    # print(mouvement_complet_avec_Neptune_data[0][7]['y'][-1])
-    # rayon_avec=np.sqrt(np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][-1])**2+np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][-1])**2)
-    # rayon_sans = np.sqrt(np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][-1]) ** 2 + np.array(
-    #     mouvement_complet_sans_Neptune_data[0][7]['x'][-1]) ** 2)
-    # print(-rayon_avec+rayon_sans)
+    rayon_avec=np.sqrt(np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][-1])**2+np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][-1])**2)
+    rayon_sans = np.sqrt(np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][-1]) ** 2 + np.array(
+        mouvement_complet_sans_Neptune_data[0][7]['x'][-1]) ** 2)
+    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_sans.mean()) * 100} % ')
     #
     # mouvement_pour_graph=[]
     # mvt=[]
@@ -126,6 +124,12 @@ if __name__ == "__main__":
     # Graph_2.graph3d_ref(mouvement_ref, "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ", outfile='ref_Avec_3d')
     # Graph_2.graph2d_ref(mouvement_ref,"Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",outfile=None)
 
+    "Différence de position dansl'orbite Avec \ ref"
+    # rayon_avec = np.sqrt((np.array(mouvement_complet_avec_Neptune_data[0][7]['y'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['y'][0:101]))** 2 +(np.array(mouvement_complet_avec_Neptune_data[0][7]['x'][0:101])-np.array(mouvement_complet_avec_Neptune_data[0][0]['x'][0:101])) ** 2)
+    # rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+
+    # print(f'Le pourcentage de différence entre les deux rayons est de: {(1-abs((rayon_avec.mean()))/rayon_ref.mean())*100} % ')
+
     "comparaison reference et simulation Uranus sans neptune"
 
     # mouvement_complet =mouvement_complet_sans_Neptune_data[0]
@@ -139,3 +143,13 @@ if __name__ == "__main__":
     # Graph_2.graph2d_ref(mouvement_ref,
     #             "Graphique de comparaison avec la référence \n de l'orbite d'Uranus avec l'influence de Neptune ",
     #             outfile=None)
+
+    "Différence de position dansl'orbite Avec \ ref"
+    # rayon_avec = np.sqrt((np.array(mouvement_complet_sans_Neptune_data[0][7]['y'][0:101]) - np.array(
+    #     mouvement_complet_sans_Neptune_data[0][0]['y'][0:101])) ** 2 + (
+    #                                  np.array(mouvement_complet_sans_Neptune_data[0][7]['x'][0:101]) - np.array(
+    #                              mouvement_complet_sans_Neptune_data[0][0]['x'][0:101])) ** 2)
+    # rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
+
+    # print(
+    #     f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_ref.mean()) * 100} % ')
