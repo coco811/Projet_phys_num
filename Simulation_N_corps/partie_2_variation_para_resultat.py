@@ -70,12 +70,12 @@ if __name__ == '__main__':
         sm1.corps(position=neptune["position"], masse=neptune["masse"], vitesse=neptune["vitesse"], nom="Neptune "),
         sm1.corps(position=pluto["position"], masse=pluto["masse"], vitesse=pluto["vitesse"], nom="Pluton"),
         sm1.corps(position=planete_9["position"], masse=planete_9["masse"], vitesse=planete_9["vitesse"],
-                  nom=" Première X ")]
+                  nom=" Première 9 ")]
 
     # integration = inte.euler(corps_simulation_planete_9, pas_temps=2 * 86400)
     # mouvement_complet_avec_planete_9 = sm1.run_simulation(integration,nombre_de_pas=182*365/2,frequence=1)
-
-    # sm1.Graphique_plusieurs_corps_sans_mvt_sol(mouvement_complet_corps_simulation_planete_9,"Simulation de l'orbite des planètes géantes \n avec une planète 9",8, 11, outfile=None)
+    #
+    # sm1.Graphique_plusieurs_corps(mouvement_complet_corps_simulation_planete_9,"Simulation de l'orbite des planètes géantes \n avec une planète 9",8 , 11, outfile=None)
 
 
     "Simulation Rogue 1 Masse:2xjupitere"
