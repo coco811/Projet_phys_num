@@ -61,6 +61,8 @@ def graph2d_compa(corps, titre, outfile=None):
 
                 if corps_obs['nom'] == 'Simulation\n avec Neptune ':
                     ax.plot(corps_obs["x"], corps_obs["y"],marker='+',c='y',label=corps_obs["nom"],alpha=0.3)
+                if corps_obs['nom'] =='Simulation\n sans planète 9':
+                    ax.plot(corps_obs["x"], corps_obs["y"],marker='+',c='y',label=corps_obs["nom"],alpha=0.3)
                 else:
                     ax.plot(corps_obs["x"], corps_obs["y"], c='k',
                             label=corps_obs["nom"])
