@@ -105,7 +105,7 @@ if __name__ == "__main__":
     print(f'sans {rayon_sans.mean():.5e}')
     print(f'avec {rayon_avec.mean():.5e}')
     print(f'La différence entre les deux rayons est de: {(abs(rayon_sans.mean() - rayon_avec.mean())):.3e}')
-    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_sans.mean()) * 100:.3} % ')
+    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean()) / rayon_sans.mean())) * 100:.3} % ')
 
     # mouvement_pour_graph=[]
     # mvt=[]
