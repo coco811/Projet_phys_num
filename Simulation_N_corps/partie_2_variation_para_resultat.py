@@ -23,7 +23,7 @@ pluto = {"position": sm1.point(0, 5.9e12, 0), "masse": 1.3e22, "vitesse": sm1.po
 # Planéte 9
 #  situé a environ (350-800 ua) et masse environ (10mt)
 planete_9_min = {"position": sm1.point(0, 3e13, 0), "masse": 10*6e24, "vitesse": sm1.point(3267.80,0, 0)}
-planete_9_max = {"position": sm1.point(0, 5e13, 0), "masse": 10*6e24, "vitesse": sm1.point(2109.36,0, 0)}
+
 
 if __name__ == '__main__':
 
