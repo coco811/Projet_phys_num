@@ -95,15 +95,15 @@ if __name__ == '__main__':
     # Graph_2.graph2d_ref(mouvement_ref,
     #                     "Graphique de comparaison entre la référence \n de l'orbite d'Uranus avec l'influence de la planète 9 ",
     #                     outfile=None)
-    rayon_avec_9 = np.sqrt((np.array(mouvement_complet_avec_planete_9_min[0][7]['y'][0:101]) - np.array(mouvement_complet_avec_planete_9_min[0][0]['y'][0:101])) ** 2 + (
-                                 np.array(mouvement_complet_avec_planete_9_min[0][7]['x'][0:101]) - np.array(
-                             mouvement_complet_avec_planete_9_min[0][0]['x'][0:101])) ** 2)
+    rayon_avec_9 = np.sqrt((np.array(mouvement_complet_avec_planete_9_min[0][7]['y']) - np.array(mouvement_complet_avec_planete_9_min[0][0]['y'])) ** 2 + (
+                                 np.array(mouvement_complet_avec_planete_9_min[0][7]['x']) - np.array(
+                             mouvement_complet_avec_planete_9_min[0][0]['x'])) ** 2)
     rayon_ref = np.sqrt(np.array(mouvement_ref[0]['y']) ** 2 + np.array(mouvement_ref[0]['x']) ** 2)
     print(f'rayon de la réference :{rayon_ref.mean():.5e}')
     print(f'rayon avec planète 9 :{rayon_avec_9.mean():.5e}')
-    print(f'La différence entre les deux rayons est de: {(abs(rayon_ref.mean() - rayon_avec_9.mean())):.5e}  ')
+    print(f'La différence entre les deux rayons est de: {abs(abs(rayon_ref.mean() - rayon_avec_9.mean())):.5e}  ')
 
-    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec_9.mean())) / rayon_ref.mean()) * 100:.5} % ')
+    print(f'Le pourcentage de différence entre les deux rayons est de: {abs(1 - abs((rayon_avec_9.mean())) / rayon_ref.mean()) * 100:.5} % ')
 
     # sm1.Graphique_plusieurs_corps(mouvement_complet_avec_planete_9_max[0],"Simulation du système solaire (Planètes Géantes) \n avec une planète 9", 8, 11,outfile=None)
 
@@ -123,9 +123,9 @@ if __name__ == '__main__':
             np.array(mouvement_avec_neptune_2[0][7]['x']) - np.array(mouvement_avec_neptune_2[0][0]['x'])) ** 2)
     print(f'rayon sans planète 9 :{rayon_ref_2.mean():.5e}')
     print(f'rayon avec planète 9 :{rayon_avec.mean():.5e}')
-    print(f'La différence entre les deux rayons est de: {(abs(rayon_ref_2.mean() - rayon_avec.mean())):.5e}  ')
+    print(f'La différence entre les deux rayons est de: {abs(abs(rayon_ref_2.mean() - rayon_avec.mean())):.5e}  ')
 
-    print(f'Le pourcentage de différence entre les deux rayons est de: {(1 - abs((rayon_avec.mean())) / rayon_ref_2.mean()) * 100:.5} % ')
+    print(f'Le pourcentage de différence entre les deux rayons est de: {abs(1 - abs((rayon_avec.mean())) / rayon_ref_2.mean()) * 100:.5} % ')
 
     mouvement_pour_graph = []
     mvt=[]
